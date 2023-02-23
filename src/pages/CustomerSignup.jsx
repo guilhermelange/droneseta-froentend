@@ -1,0 +1,309 @@
+import React, { useState } from 'react';
+import {
+    Progress,
+    Box,
+    ButtonGroup,
+    Button,
+    Heading,
+    Flex,
+    FormControl,
+    GridItem,
+    FormLabel,
+    Input,
+    Select,
+    SimpleGrid,
+    InputLeftAddon,
+    InputGroup,
+    Textarea,
+    FormHelperText,
+    FormErrorMessage,
+    useColorModeValue,
+    Stack,
+    Text,
+    Center,
+} from '@chakra-ui/react';
+
+import { useToast } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
+import { primary } from '../styles/theme';
+
+const Form1 = () => {
+    const [show, setShow] = React.useState(false);
+    const handleClick = () => setShow(!show);
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+
+    return (
+        <>
+            <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
+                Crie sua conta<Text display={'inline'} color={primary}>!</Text>
+            </Heading>
+            <Center>É simples e rápido</Center>
+            <Stack spacing={4}>
+                <FormControl isInvalid={!!errors.cpf}>
+                    <FormLabel htmlFor='cpf'>CPF</FormLabel>
+                    <Input
+                        type={'text'}
+                        id='cpf'
+                        placeholder='Informe seu CPF'
+                        {...register('cpf', {
+                            required: 'Obrigatório informar CPF válido',
+                            pattern: {
+                                value: /^([0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}|[0-9]{2}\.?[0-9]{3}\.?[0-9]{3}\/?[0-9]{4}\-?[0-9]{2})$/,
+                                message: 'CPF inválido'
+                            }
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.cpf && String(errors.cpf.message)}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.password}>
+                    <FormLabel htmlFor='password'>Senha</FormLabel>
+                    <Input
+                        type={'password'}
+                        id='password'
+                        placeholder='Informe a senha'
+                        {...register('password', {
+                            required: 'Obrigatório informar a senha',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.password && String(errors.password.message)}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.creditCard}>
+                    <FormLabel htmlFor='creditCard'>Cartão de Crédito</FormLabel>
+                    <Input
+                        type={'text'}
+                        id='creditCard'
+                        placeholder='Informe seu cartão para pagamento'
+                        {...register('creditCard', {
+                            required: 'Obrigatório informar o cartão',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.creditCard && String(errors.creditCard.message)}
+                    </FormErrorMessage>
+                </FormControl>
+            </Stack>
+        </>
+    );
+};
+
+const Form2 = () => {
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+
+
+    return (
+        <>
+            <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
+                Endereço Pessoal
+            </Heading>
+            <Stack spacing={4}>
+                <FormControl isInvalid={!!errors.state}>
+                    <FormLabel htmlFor='state'>Estado</FormLabel>
+                    <Input
+                        type={'state'}
+                        id='state'
+                        placeholder='Selecione o estado'
+                        {...register('password', {
+                            required: 'Obrigatório selecionar um estado',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.state && String(errors.state.message)}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.city}>
+                    <FormLabel htmlFor='creditCard'>Cidade</FormLabel>
+                    <Input
+                        type={'text'}
+                        id='city'
+                        placeholder='Informe a cidade'
+                        {...register('city', {
+                            required: 'Obrigatório informar a cidade',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.city && String(errors.city.message)}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.public_place}>
+                    <FormLabel htmlFor='public_place'>Logradouro</FormLabel>
+                    <Input
+                        type={'text'}
+                        id='public_place'
+                        placeholder='Informe o logradouro'
+                        {...register('city', {
+                            required: 'Obrigatório informar o logradouro',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.public_place && String(errors.public_place.message)}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.number}>
+                    <FormLabel htmlFor='number'>Número</FormLabel>
+                    <Input
+                        type={'number'}
+                        id='number'
+                        placeholder='Informe o número'
+                        {...register('city', {
+                            // required: 'Obrigatório informar o número',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.number && String(errors.number.message)}
+                    </FormErrorMessage>
+                </FormControl>
+            </Stack>
+        </>
+    );
+};
+
+const Form3 = () => {
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+
+    return (
+        <>
+            <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
+                Endereço Pessoal
+            </Heading>
+            <Stack spacing={4}>
+                <FormControl isInvalid={!!errors.state}>
+                    <FormLabel htmlFor='state'>Estado</FormLabel>
+                    <Input
+                        type={'state'}
+                        id='state'
+                        placeholder='Selecione o estado'
+                        {...register('password', {
+                            required: 'Obrigatório selecionar um estado',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.state && String(errors.state.message)}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.city}>
+                    <FormLabel htmlFor='creditCard'>Cidade</FormLabel>
+                    <Input
+                        type={'text'}
+                        id='city'
+                        placeholder='Informe a cidade'
+                        {...register('city', {
+                            required: 'Obrigatório informar a cidade',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.city && String(errors.city.message)}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.public_place}>
+                    <FormLabel htmlFor='public_place'>Logradouro</FormLabel>
+                    <Input
+                        type={'text'}
+                        id='public_place'
+                        placeholder='Informe o logradouro'
+                        {...register('city', {
+                            required: 'Obrigatório informar o logradouro',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.public_place && String(errors.public_place.message)}
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.number}>
+                    <FormLabel htmlFor='number'>Número</FormLabel>
+                    <Input
+                        type={'number'}
+                        id='number'
+                        placeholder='Informe o número'
+                        {...register('city', {
+                            // required: 'Obrigatório informar o número',
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.number && String(errors.number.message)}
+                    </FormErrorMessage>
+                </FormControl>
+            </Stack>
+        </>
+    );
+};
+
+export default function CustomerSignup() {
+    const toast = useToast();
+    const [step, setStep] = useState(1);
+    const [progress, setProgress] = useState(33.33);
+    return (
+        <>
+            <Box
+                rounded="lg"
+                maxWidth={500}
+                p={6}
+                m="10px auto"
+                bg={useColorModeValue('white', 'gray.700')}
+                as="form">
+                <Progress
+                    hasStripe
+                    value={progress}
+                    mb="5%"
+                    mx="5%"
+                    colorScheme={primary}
+                    isAnimated></Progress>
+                {step === 1 ? <Form1 /> : step === 2 ? <Form2 /> : <Form3 />}
+                <ButtonGroup mt="5%" w="100%">
+                    <Flex w="100%" justifyContent="space-between">
+                        <Flex>
+                            <Button
+                                onClick={() => {
+                                    setStep(step - 1);
+                                    setProgress(progress - 33.33);
+                                }}
+                                isDisabled={step === 1}
+                                colorScheme={primary}
+                                color={'white'}
+                                variant={'outline'}
+                                w="7rem"
+                                mr="5%">
+                                Anterior
+                            </Button>
+                            <Button
+                                w="7rem"
+                                isDisabled={step === 3}
+                                onClick={() => {
+                                    setStep(step + 1);
+                                    if (step === 3) {
+                                        setProgress(100);
+                                    } else {
+                                        setProgress(progress + 33.33);
+                                    }
+                                }}
+                                colorScheme={primary}
+                                color={'white'}>
+                                Continuar
+                            </Button>
+                        </Flex>
+                        {step === 3 ? (
+                            <Button
+                                w="7rem"
+                                colorScheme={primary}
+                                color={'white'}
+                                onClick={() => {
+                                    toast({
+                                        title: 'Account created.',
+                                        description: "We've created your account for you.",
+                                        status: 'success',
+                                        duration: 3000,
+                                        isClosable: true,
+                                    });
+                                }}>
+                                Concluir
+                            </Button>
+                        ) : null}
+                    </Flex>
+                </ButtonGroup>
+            </Box>
+        </>
+    );
+}
