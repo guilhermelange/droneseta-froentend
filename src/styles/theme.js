@@ -1,7 +1,7 @@
 import { extendTheme, withDefaultVariant } from '@chakra-ui/react';
 
 const config = {
-    initialColorMode: 'dark',
+    initialColorMode: 'light',
     useSystemColorMode: false,
 }
 
@@ -144,5 +144,6 @@ export const theme = extendTheme({
   }))
 
 
-  export const primary = 'orange';
+  export const primary = 'purple';
   export const bgHover = '#42444C';
+  export const headerBg = '#131921'

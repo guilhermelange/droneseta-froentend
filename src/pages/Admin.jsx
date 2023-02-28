@@ -97,8 +97,6 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, menu, setMenu, ...rest }: SidebarProps) => {
   return (
     <Box
-      transition="3s ease"
-      // bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
       w={{ base: 'full', md: 60 }}
@@ -140,17 +138,14 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: bgHover,
-          color: 'white',
+          bg: 'whiteAlpha.900',
+          // color: 'white',
         }}
         {...rest}>
         {icon && (
           <Icon
             mr="4"
             fontSize="16"
-            _groupHover={{
-              color: 'white',
-            }}
             as={icon}
           />
         )}
@@ -219,7 +214,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               </HStack>
             </MenuButton>
             <MenuList
-              borderColor={useColorModeValue('gray.200', 'gray.700')}>
+              borderColor={useColorModeValue('gray.200', 'gray.700')}
+              >
               {/* <MenuDivider /> */}
               <MenuItem onClick={() => {navigate('../admin-login')}}>Sair<
                 /MenuItem>

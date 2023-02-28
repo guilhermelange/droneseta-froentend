@@ -7,30 +7,31 @@ import {
     Heading,
     Flex,
     FormControl,
-    GridItem,
     FormLabel,
     Input,
-    Select,
-    SimpleGrid,
-    InputLeftAddon,
-    InputGroup,
-    Textarea,
-    FormHelperText,
     FormErrorMessage,
     useColorModeValue,
     Stack,
     Text,
     Center,
+    Image,
+    Link,
 } from '@chakra-ui/react';
 
 import { useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { primary } from '../styles/theme';
+import { useNavigate } from 'react-router-dom';
+import Template from '../pages/Template'
 
-const Form1 = () => {
-    const [show, setShow] = React.useState(false);
-    const handleClick = () => setShow(!show);
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+
+interface FormDTO {
+    errors: FieldErrors<FieldValues>;
+    register: UseFormRegister<FieldValues>
+}
+
+function Form1({ errors, register }: FormDTO) {
+    // const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
     return (
         <>
@@ -90,10 +91,7 @@ const Form1 = () => {
     );
 };
 
-const Form2 = () => {
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
-
-
+function Form2({ errors, register }: FormDTO) {
     return (
         <>
             <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
@@ -106,7 +104,7 @@ const Form2 = () => {
                         type={'state'}
                         id='state'
                         placeholder='Selecione o estado'
-                        {...register('password', {
+                        {...register('state', {
                             required: 'Obrigatório selecionar um estado',
                         })}
                     />
@@ -115,7 +113,7 @@ const Form2 = () => {
                     </FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!errors.city}>
-                    <FormLabel htmlFor='creditCard'>Cidade</FormLabel>
+                    <FormLabel htmlFor='city'>Cidade</FormLabel>
                     <Input
                         type={'text'}
                         id='city'
@@ -134,7 +132,7 @@ const Form2 = () => {
                         type={'text'}
                         id='public_place'
                         placeholder='Informe o logradouro'
-                        {...register('city', {
+                        {...register('public_place', {
                             required: 'Obrigatório informar o logradouro',
                         })}
                     />
@@ -148,7 +146,7 @@ const Form2 = () => {
                         type={'number'}
                         id='number'
                         placeholder='Informe o número'
-                        {...register('city', {
+                        {...register('number', {
                             // required: 'Obrigatório informar o número',
                         })}
                     />
@@ -161,69 +159,69 @@ const Form2 = () => {
     );
 };
 
-const Form3 = () => {
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+function Form3({ errors, register }: FormDTO) {
+    // const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
     return (
         <>
             <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-                Endereço Pessoal
+                Endereço de Entrega
             </Heading>
             <Stack spacing={4}>
-                <FormControl isInvalid={!!errors.state}>
-                    <FormLabel htmlFor='state'>Estado</FormLabel>
+                <FormControl isInvalid={!!errors.state2}>
+                    <FormLabel htmlFor='state2'>Estado</FormLabel>
                     <Input
-                        type={'state'}
-                        id='state'
+                        type={'state2'}
+                        id='state2'
                         placeholder='Selecione o estado'
-                        {...register('password', {
+                        {...register('state2', {
                             required: 'Obrigatório selecionar um estado',
                         })}
                     />
                     <FormErrorMessage>
-                        {errors.state && String(errors.state.message)}
+                        {errors.state2 && String(errors.state2.message)}
                     </FormErrorMessage>
                 </FormControl>
-                <FormControl isInvalid={!!errors.city}>
-                    <FormLabel htmlFor='creditCard'>Cidade</FormLabel>
+                <FormControl isInvalid={!!errors.city2}>
+                    <FormLabel htmlFor='city2'>Cidade</FormLabel>
                     <Input
                         type={'text'}
-                        id='city'
+                        id='city2'
                         placeholder='Informe a cidade'
-                        {...register('city', {
+                        {...register('city2', {
                             required: 'Obrigatório informar a cidade',
                         })}
                     />
                     <FormErrorMessage>
-                        {errors.city && String(errors.city.message)}
+                        {errors.city2 && String(errors.city2.message)}
                     </FormErrorMessage>
                 </FormControl>
-                <FormControl isInvalid={!!errors.public_place}>
-                    <FormLabel htmlFor='public_place'>Logradouro</FormLabel>
+                <FormControl isInvalid={!!errors.public_place2}>
+                    <FormLabel htmlFor='public_place2'>Logradouro</FormLabel>
                     <Input
                         type={'text'}
-                        id='public_place'
+                        id='public_place2'
                         placeholder='Informe o logradouro'
-                        {...register('city', {
+                        {...register('public_place2', {
                             required: 'Obrigatório informar o logradouro',
                         })}
                     />
                     <FormErrorMessage>
-                        {errors.public_place && String(errors.public_place.message)}
+                        {errors.public_place2 && String(errors.public_place2.message)}
                     </FormErrorMessage>
                 </FormControl>
-                <FormControl isInvalid={!!errors.number}>
-                    <FormLabel htmlFor='number'>Número</FormLabel>
+                <FormControl isInvalid={!!errors.number2}>
+                    <FormLabel htmlFor='number2'>Número</FormLabel>
                     <Input
                         type={'number'}
-                        id='number'
+                        id='number2'
                         placeholder='Informe o número'
-                        {...register('city', {
+                        {...register('number2', {
                             // required: 'Obrigatório informar o número',
                         })}
                     />
                     <FormErrorMessage>
-                        {errors.number && String(errors.number.message)}
+                        {errors.number2 && String(errors.number2.message)}
                     </FormErrorMessage>
                 </FormControl>
             </Stack>
@@ -231,79 +229,115 @@ const Form3 = () => {
     );
 };
 
-export default function CustomerSignup() {
+export default function Signup() {
+    return (
+        <Template>
+            <CustomerSignup></CustomerSignup>
+        </Template>
+    )
+}
+
+function CustomerSignup() {
     const toast = useToast();
     const [step, setStep] = useState(1);
     const [progress, setProgress] = useState(33.33);
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+    const navigate = useNavigate();
+
     return (
         <>
-            <Box
-                rounded="lg"
-                maxWidth={500}
-                p={6}
-                m="10px auto"
-                bg={useColorModeValue('white', 'gray.700')}
-                as="form">
-                <Progress
-                    hasStripe
-                    value={progress}
-                    mb="5%"
-                    mx="5%"
-                    colorScheme={primary}
-                    isAnimated></Progress>
-                {step === 1 ? <Form1 /> : step === 2 ? <Form2 /> : <Form3 />}
-                <ButtonGroup mt="5%" w="100%">
-                    <Flex w="100%" justifyContent="space-between">
-                        <Flex>
-                            <Button
-                                onClick={() => {
-                                    setStep(step - 1);
-                                    setProgress(progress - 33.33);
-                                }}
-                                isDisabled={step === 1}
-                                colorScheme={primary}
-                                color={'white'}
-                                variant={'outline'}
-                                w="7rem"
-                                mr="5%">
-                                Anterior
-                            </Button>
-                            <Button
-                                w="7rem"
-                                isDisabled={step === 3}
-                                onClick={() => {
-                                    setStep(step + 1);
-                                    if (step === 3) {
-                                        setProgress(100);
-                                    } else {
-                                        setProgress(progress + 33.33);
-                                    }
-                                }}
-                                colorScheme={primary}
-                                color={'white'}>
-                                Continuar
-                            </Button>
+            <Flex
+                minH={'100vh'}
+                align={'center'}
+                justify={'center'}
+                bg={useColorModeValue('gray.50', 'gray.800')}>
+                <Stack spacing={8} mx={'auto'} maxW={'4lg'} minW={'550px'} py={12} px={6}>
+                    <Stack align={'center'}>
+                        <Flex justifyContent={'center'} alignItems={'center'} gap={2}>
+                            <Image src='logo.svg' h={'2em'}></Image>
+                            <Text fontSize="xl" fontWeight="bold">
+                                Droneseta
+                            </Text>
+                            <Text fontSize={'lg'} color={'gray.600'} textAlign={'center'}>
+                                Aproveite as melhores ofertas<Link color={primary}>!</Link> ✌️
+                            </Text>
                         </Flex>
-                        {step === 3 ? (
-                            <Button
-                                w="7rem"
-                                colorScheme={primary}
-                                color={'white'}
-                                onClick={() => {
-                                    toast({
-                                        title: 'Account created.',
-                                        description: "We've created your account for you.",
-                                        status: 'success',
-                                        duration: 3000,
-                                        isClosable: true,
-                                    });
-                                }}>
-                                Concluir
-                            </Button>
-                        ) : null}
-                    </Flex>
-                </ButtonGroup>
-            </Box>
+                    </Stack>
+                    <Box
+                        rounded="lg"
+                        maxWidth={500}
+                        minW={450}
+                        p={6}
+                        m="10px auto"
+                        bg={useColorModeValue('white', 'gray.700')}
+                        as="form">
+                        <Progress
+                            hasStripe
+                            value={progress}
+                            mb="5%"
+                            mx="5%"
+                            colorScheme={primary}
+                            isAnimated></Progress>
+                        {step === 1 ? <Form1 register={register} errors={errors} /> : step === 2 ? <Form2 register={register} errors={errors} /> : <Form3 register={register} errors={errors} />}
+                        <ButtonGroup mt="5%" w="100%">
+                            <Flex w="100%" justifyContent="space-between">
+                                <Flex>
+                                    <Button
+                                        onClick={() => {
+                                            setStep(step - 1);
+                                            setProgress(progress - 33.33);
+                                        }}
+                                        isDisabled={step === 1}
+                                        colorScheme={primary}
+                                        variant={'outline'}
+                                        w="7rem"
+                                        mr="5%"
+                                    >
+                                        Anterior
+                                    </Button>
+                                    <Button
+                                        w="7rem"
+                                        isDisabled={step === 3}
+                                        onClick={
+                                            handleSubmit(() => {
+                                                setStep(step + 1);
+                                                if (step === 3) {
+                                                    setProgress(100);
+                                                } else {
+                                                    setProgress(progress + 33.33);
+                                                }
+                                            })}
+                                        colorScheme={primary}
+                                        color={'white'}>
+                                        Continuar
+                                    </Button>
+                                </Flex>
+                                {step === 3 ? (
+                                    <Button
+                                        w="7rem"
+                                        colorScheme={primary}
+                                        color={'white'}
+                                        isLoading={isSubmitting}
+                                        onClick={() => {
+                                            toast({
+                                                title: 'Conta Criada.',
+                                                description: "Login disponível.",
+                                                status: 'success',
+                                                duration: 3000,
+                                                isClosable: true,
+                                            });
+                                            navigate('../signin')
+                                        }}>
+                                        Concluir
+                                    </Button>
+                                ) : null}
+                            </Flex>
+                        </ButtonGroup>
+                    </Box>
+                </Stack>
+            </Flex>
+
+
         </>
     );
 }

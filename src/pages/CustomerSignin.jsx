@@ -14,10 +14,18 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-
+import Template from '../pages/Template'
 import { primary } from '../styles/theme';
 
-export default function AdminLogin() {
+export default function Signin() {
+  return (
+    <Template>
+        <CustomerSignin></CustomerSignin>
+    </Template>
+  )
+}
+
+function CustomerSignin() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
 
@@ -33,21 +41,24 @@ export default function AdminLogin() {
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Flex justifyContent={'center'} alignItems={'center'} gap={3}>
-            <Image src='logo.svg' h={'4em'}></Image>
-            <Text fontSize="6xl" fontWeight="bold">
-              Droneseta
-            </Text>
-          </Flex>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            Acesso Adminstrador<Link color={primary}>!</Link> ✌️
-          </Text>
+        <Flex justifyContent={'center'} alignItems={'center'} gap={2}>
+                            <Image src='logo.svg' h={'2em'}></Image>
+                            <Text fontSize="xl" fontWeight="bold">
+                                Droneseta
+                            </Text>
+                            <Text fontSize={'lg'} color={'gray.600'} textAlign={'center'}>
+                                Aproveite as melhores ofertas<Link color={primary}>!</Link> ✌️
+                            </Text>
+                        </Flex>
         </Stack>
         <Box
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
           p={6}>
+            <Text fontSize={'xl'} fontWeight={'bold'} w="100%" textAlign={'center'} fontWeight="normal" mb="0.5em">
+                Efetue o Login<Text display={'inline'} color={primary}>!</Text>
+            </Text>
           <Stack spacing={4}>
             <FormControl isInvalid={!!errors.cpf}>
               <FormLabel htmlFor='cpf'>CPF</FormLabel>

@@ -5,6 +5,11 @@ import NotFound from './pages/NotFound';
 import Admin from './pages/Admin';
 import ToggleTheme from './pages/ToggleTheme';
 import CustomerSignup from './pages/CustomerSignup';
+import CustomerSignin from './pages/CustomerSignin';
+import Home from './pages/Home';
+import Template from './pages/Template';
+import Footer from './pages/Footer';
+import Product from './pages/Product'
 
 function App() {
   return (
@@ -14,7 +19,11 @@ function App() {
           <Route path='/admin-login' element={<AdminLogin/>}></Route>
           <Route path='/admin' element={<Admin/>}></Route>
           <Route path='/signup' element={<CustomerSignup/>}></Route>
-          <Route path='/'></Route>
+          <Route path='/signin' element={<CustomerSignin/>}></Route>
+          <Route path='/home' element={<Home/>}></Route>
+          <Route path='/product' element={<Product/>}></Route>
+          <Route path='/template' element={<Template/>}></Route>
+          <Route path='/footer' element={<Footer/>}></Route>
           <Route path='/toggle-theme'  element={<ToggleTheme/>}></Route>
           <Route path='*' element={<NotFound/>}></Route>
         </Routes>
