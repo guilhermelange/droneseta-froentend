@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { MdLocalShipping } from 'react-icons/md';
 import Template from '../pages/Template'
+import { primary, primaryHex } from '../styles/theme';
 
 export default function ProductDetails() {
     return (
@@ -87,7 +88,7 @@ function Simple() {
                         <Box>
                             <Text
                                 fontSize={{ base: '16px', lg: '18px' }}
-                                color={useColorModeValue('yellow.500', 'yellow.300')}
+                                color={primaryHex}
                                 fontWeight={'500'}
                                 textTransform={'uppercase'}
                                 mb={'4'}>
@@ -110,7 +111,7 @@ function Simple() {
                         <Box>
                             <Text
                                 fontSize={{ base: '16px', lg: '18px' }}
-                                color={useColorModeValue('yellow.500', 'yellow.300')}
+                                color={primaryHex}
                                 fontWeight={'500'}
                                 textTransform={'uppercase'}
                                 mb={'4'}>
@@ -166,18 +167,20 @@ function Simple() {
                     </Stack>
 
                     <Button
-                        rounded={'none'}
+                        // rounded={'none'}
                         w={'full'}
                         mt={8}
                         size={'lg'}
-                        py={'7'}
-                        bg={useColorModeValue('gray.900', 'gray.50')}
-                        color={useColorModeValue('white', 'gray.900')}
-                        textTransform={'uppercase'}
-                        _hover={{
-                            transform: 'translateY(2px)',
-                            boxShadow: 'lg',
-                        }}>
+                        // py={'7'}
+                        // bg={useColorModeValue('gray.900', 'gray.50')}
+                        // color={useColorModeValue('white', 'gray.900')}
+                        colorScheme={primary}
+                        // textTransform={'uppercase'}
+                        // _hover={{
+                        //     transform: 'translateY(2px)',
+                        //     boxShadow: 'lg',
+                        // }}
+                        >
                         Add to cart
                     </Button>
 

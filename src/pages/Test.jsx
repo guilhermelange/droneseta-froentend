@@ -78,6 +78,7 @@ function ProductTable() {
 
 function App() {
   return (
+    <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Heading as="h1" size="2xl" m="6">
           Produtos Mais Vendidos
@@ -86,6 +87,7 @@ function App() {
           <ProductTable />
         </VStack>
       </Box>
+    </ChakraProvider>
   );
 }
 
