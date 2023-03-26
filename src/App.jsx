@@ -8,10 +8,8 @@ import CustomerSignup from './pages/CustomerSignup';
 import CustomerSignin from './pages/CustomerSignin';
 import Home from './pages/Home';
 import Template from './pages/Template';
-import Footer from './pages/Footer';
 import Product from './pages/Product'
 import Cart from './pages/Cart'
-import Test from './pages/Test'
 import Search from './pages/Search';
 import Shopping from './pages/Shopping';
 
@@ -30,9 +28,7 @@ function App() {
           <Route path='/shopping' element={<Shopping/>}></Route>
           <Route path='/product' element={<Product/>}></Route>
           <Route path='/template' element={<Template/>}></Route>
-          <Route path='/footer' element={<Footer/>}></Route>
           <Route path='/toggle-theme'  element={<ToggleTheme/>}></Route>
-          <Route path='/test'  element={<Test/>}></Route>
           <Route path='*' element={<NotFound/>}></Route>
         </Routes>
       </BrowserRouter>

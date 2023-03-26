@@ -2,8 +2,6 @@ import React from 'react';
 import {
   Box,
   Button,
-  ChakraProvider,
-  extendTheme,
   Heading,
   HStack,
   Table,
@@ -14,17 +12,6 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
-import { createBreakpoints } from '@chakra-ui/theme-tools';
-
-const breakpoints = createBreakpoints({
-  sm: '30em',
-  md: '48em',
-  lg: '62em',
-  xl: '80em',
-  '2xl': '96em',
-});
-
-const theme = extendTheme({ breakpoints });
 
 const payments = [
   {
@@ -49,7 +36,7 @@ const payments = [
 
 function PaymentTable({ onApprovePayment }) {
   return (
-    <Table variant="simple">
+    <Table variant="striped" size={'sm'}>
       <Thead>
         <Tr>
           <Th>Nome da Pessoa</Th>
@@ -89,7 +76,7 @@ function App() {
 
   return (
     <Box textAlign="center" fontSize="xl">
-        <Heading as="h1" size="2xl" m="6">
+        <Heading as="h1" size="xl" m="6">
           Aprovação Manual de Pagamentos
         </Heading>
         <VStack spacing={8}>

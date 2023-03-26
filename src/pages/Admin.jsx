@@ -34,11 +34,11 @@ import {
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {bgHover} from '../styles/theme'
 import HomeAdmin from '../components/HomeAdmin'
 import AdminCustomer from '../components/AdminCustomer'
 import AdminProduct from '../components/AdminProduct'
 import AdminShopping from '../components/AdminShopping'
+import { headerBg } from '../styles/theme'
 
 interface LinkItemProps {
   name: string;
@@ -63,6 +63,8 @@ export default function Admin() {
         display={{ base: 'none', md: 'block' }}
         menu={menu}
         setMenu={setMenu}
+        bg={useColorModeValue(headerBg, headerBg)}
+        color={'white'}
       />
       <Drawer
         autoFocus={false}
@@ -102,6 +104,8 @@ const SidebarContent = ({ onClose, menu, setMenu, ...rest }: SidebarProps) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
+      bg={useColorModeValue(headerBg, headerBg)}
+      color={'white'}
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Flex justifyContent={'center'} alignItems={'center'} gap={3}>
@@ -138,8 +142,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'whiteAlpha.900',
-          // color: 'white',
+          bg: 'whiteAlpha.200',
         }}
         {...rest}>
         {icon && (
@@ -169,7 +172,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
-      {...rest}>
+      {...rest}
+      bg={useColorModeValue(headerBg, headerBg)}
+      color={'white'}>
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
@@ -177,14 +182,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold">
-        Logo
-      </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
         
@@ -214,10 +211,11 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               </HStack>
             </MenuButton>
             <MenuList
+              bg={useColorModeValue(headerBg, headerBg)}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
               >
               {/* <MenuDivider /> */}
-              <MenuItem onClick={() => {navigate('../admin-login')}}>Sair<
+              <MenuItem bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={() => {navigate('../admin-login')}}>Sair<
                 /MenuItem>
             </MenuList>
           </Menu>

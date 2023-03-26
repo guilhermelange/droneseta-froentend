@@ -8,12 +8,10 @@ import {
   Text,
   Container,
 } from '@chakra-ui/react';
-// Here we have used react-icons package for the icons
+
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
-// And react-slick as our Carousel Lib
 import Slider from 'react-slick';
 
-// Settings for the slider
 const settings = {
   dots: true,
   arrows: false,
@@ -27,37 +25,29 @@ const settings = {
 };
 
 export default function CaptionCarousel() {
-  // As we have used custom buttons, we need a reference variable to
-  // change the state
   const [slider, setSlider] = useState(null);
 
-
-  // These are the breakpoints which changes the position of the
-  // buttons as the screen size changes
   const top = useBreakpointValue({ base: '90%', md: '50%' });
   const side = useBreakpointValue({ base: '30%', md: '40px' });
 
-  // This list contains all the data for carousels
-  // This can be static or loaded from a server
   const cards = [
     {
-      title: 'Design Projects 1',
+      title: 'Droneseta',
       text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        "A melhor plataforma de compras online para o seu conforto.",
       image:
         'https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
     },
     {
-      title: 'Design Projects 2',
+      title: 'Tecnologia do Futuro!!!',
       text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        "Receba em casa suas encomendas através de nossos drones.",
       image:
         'https://images.unsplash.com/photo-1438183972690-6d4658e3290e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2274&q=80',
     },
     {
-      title: 'Design Projects 3',
-      text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+      title: 'Aproveite nossas ofertas',
+      text: 'A semana "Limpa Loja" está no ar. Aproveite as melhores ofertas por tempo limitado',
       image:
         'https://images.unsplash.com/photo-1507237998874-b4d52d1dd655?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
     },
@@ -71,7 +61,6 @@ export default function CaptionCarousel() {
       overflow={'hidden'}
       boxShadow='0 1px 1px rgba(182, 182, 182, 0.75)'
       >
-      {/* CSS files for react-slick */}
       <link
         rel="stylesheet"
         type="text/css"
@@ -83,7 +72,6 @@ export default function CaptionCarousel() {
         type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
       />
-      {/* Left Icon */}
       <IconButton
         aria-label="left-arrow"
         variant="ghost"
@@ -95,7 +83,6 @@ export default function CaptionCarousel() {
         onClick={() => slider?.slickPrev()}>
         <BiLeftArrowAlt size="40px" />
       </IconButton>
-      {/* Right Icon */}
       <IconButton
         aria-label="right-arrow"
         variant="ghost"
@@ -107,7 +94,6 @@ export default function CaptionCarousel() {
         onClick={() => slider?.slickNext()}>
         <BiRightArrowAlt size="40px" />
       </IconButton>
-      {/* Slider */}
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {cards.map((card, index) => (
           <Box
@@ -118,7 +104,6 @@ export default function CaptionCarousel() {
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}>
-            {/* This is the block you need to change, to customize the caption */}
             <Container size="container.lg" height="350px" position="relative">
               <Stack
                 spacing={6}
@@ -127,10 +112,10 @@ export default function CaptionCarousel() {
                 position="absolute"
                 top="50%"
                 transform="translate(0, -50%)">
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} textAlign={'center'}>
                   {card.title}
                 </Heading>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
+                <Text fontSize={{ base: 'md', lg: 'lg' }} color="blackAlpha.900" textAlign={'center'}>
                   {card.text}
                 </Text>
               </Stack>

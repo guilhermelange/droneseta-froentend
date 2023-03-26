@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     Box,
-    ChakraProvider,
-    extendTheme,
+    Container,
     Heading,
     Table,
     Tbody,
@@ -13,6 +12,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import Template from './Template'
+import { primary } from '../styles/theme';
 
 const orders = [
     {
@@ -38,41 +38,37 @@ const orders = [
     },
 ];
 
-function OrderTrackingTable({ orders }) {
+function ShoppingTable() {
     return (
-        <Table variant="simple">
-            <Thead>
-                <Tr>
-                    <Th>Status do Pedido</Th>
-                    <Th>Valor</Th>
-                    <Th>Itens Selecionados</Th>
-                    <Th>Prazo para Entrega</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                {orders.map((order) => (
-                    <Tr key={order.id}>
-                        <Td>{order.status}</Td>
-                        <Td>R$ {order.value.toFixed(2)}</Td>
-                        <Td>{order.items.join(', ')}</Td>
-                        <Td>{order.deliveryTime}</Td>
-                    </Tr>
-                ))}
-            </Tbody>
-        </Table>
-    );
-}
-
-function App() {
-    return (
-        <Box textAlign="center" fontSize="xl">
-            <Heading as="h1" size="2xl" mb="6" pt={12}>
-                Acompanhamento de Compras
-            </Heading>
-            <VStack spacing={8}>
-                <OrderTrackingTable orders={orders} />
-            </VStack>
-        </Box>
+        <Container maxW="container.xl">
+            <Box textAlign="center" fontSize="xl">
+                <Heading size="xl" mb="6" pt={12}>
+                    Acompanhamento de Compras
+                </Heading>
+                <VStack spacing={8}>
+                    <Table variant="striped" size='md'>
+                        <Thead>
+                            <Tr>
+                                <Th>Status do Pedido</Th>
+                                <Th>Valor</Th>
+                                <Th>Itens Selecionados</Th>
+                                <Th>Prazo para Entrega</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {orders.map((order) => (
+                                <Tr key={order.id}>
+                                    <Td>{order.status}</Td>
+                                    <Td>R$ {order.value.toFixed(2)}</Td>
+                                    <Td>{order.items.join(', ')}</Td>
+                                    <Td>{order.deliveryTime}</Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </Table>
+                </VStack>
+            </Box>
+        </Container>
     );
 }
 
@@ -80,7 +76,7 @@ function App() {
 export default function Shopping() {
     return (
         <Template>
-            <App></App>
+            <ShoppingTable></ShoppingTable>
         </Template>
     );
 }

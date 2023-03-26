@@ -4,13 +4,7 @@ import {
     Text,
     Button,
     Stack,
-    Collapse,
-    Link,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
     useColorModeValue,
-    useDisclosure,
     Image,
     Input,
     InputGroup,
@@ -18,21 +12,28 @@ import {
     Icon
 } from '@chakra-ui/react';
 import Footer from '../pages/Footer'
-import { headerBg, primary } from '../styles/theme'
+import { headerBg } from '../styles/theme'
 import { SearchIcon } from "@chakra-ui/icons";
 import { FiShoppingCart } from "react-icons/fi"
 import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { useQuery } from "../hook/UseQuery";
+import { useState } from 'react';
+import { useEffect } from 'react';
+
 interface TemplateDTO {
     children: any
 }
 
-export default function WithSubnavigation({ children }: TemplateDTO) {
-    const { isOpen, onToggle } = useDisclosure();
+export default function Template({ children }: TemplateDTO) {
     const linkColor = useColorModeValue('white', 'white');
     const linkHoverColor = useColorModeValue('white', 'white');
     const navigate = useNavigate();
-    const search = useRef('');
+    const query = useQuery();
+    const [search, setSearch] = useState('');
+    
+    useEffect(() => {
+        setSearch(query.get('q') || '');
+    }, [])
 
     const handleClickLogin = (data: any) => {
         navigate('/signin')
@@ -47,8 +48,8 @@ export default function WithSubnavigation({ children }: TemplateDTO) {
     }
 
     const handleSearch = (data: any) => {
-        console.log(data)
-        navigate(`/search?${search.current.value}`)
+        console.log(search)
+        navigate(`/search?q=${search}`)
     }
 
     return (
@@ -76,16 +77,13 @@ export default function WithSubnavigation({ children }: TemplateDTO) {
                             _focus={{
                                 backgroundColor: "var(--chakra-colors-gray-100)"
                             }}
-                            ref={search}
+                            onChange={(e) => (setSearch(e.target.value))}
+                            value={search}
                         />
                         <InputRightElement cursor={'pointer'} onClick={handleSearch}>
                             <Icon as={SearchIcon} color="blackAlpha.900" />
                         </InputRightElement>
                     </InputGroup>
-
-                    {/* <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-                        <DesktopNav />
-                    </Flex> */}
                 </Flex>
 
                 <Stack
@@ -116,181 +114,6 @@ export default function WithSubnavigation({ children }: TemplateDTO) {
                 {children}
             </Box>
             <Footer></Footer>
-
-            <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
-            </Collapse>
         </Box>
     );
 }
-
-const DesktopNav = () => {
-    const linkColor = useColorModeValue('white', 'white');
-    const linkHoverColor = useColorModeValue('white', 'white');
-    const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-
-    return (
-        <Stack direction={'row'} spacing={4}>
-            {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label}>
-                    <Popover trigger={'hover'} placement={'bottom-start'}>
-                        <PopoverTrigger>
-                            <Link
-                                p={2}
-                                href={navItem.href ?? '#'}
-                                fontSize={'sm'}
-                                fontWeight={500}
-                                color={linkColor}
-                                _hover={{
-                                    textDecoration: 'none',
-                                    color: linkHoverColor,
-                                }}
-                            >
-                                {navItem.label}
-                            </Link>
-                        </PopoverTrigger>
-
-                        {navItem.children && (
-                            <PopoverContent
-                                border={0}
-                                boxShadow={'xl'}
-                                bg={popoverContentBgColor}
-                                p={4}
-                                rounded={'xl'}
-                                minW={'sm'}>
-                                <Stack>
-                                    {navItem.children.map((child) => (
-                                        <DesktopSubNav key={child.label} {...child} />
-                                    ))}
-                                </Stack>
-                            </PopoverContent>
-                        )}
-                    </Popover>
-                </Box>
-            ))}
-        </Stack>
-    );
-};
-
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
-    return (
-        <Link
-            href={href}
-            role={'group'}
-            display={'block'}
-            p={2}
-            rounded={'md'}
-            _hover={{ bg: '#AB7DF0' }}>
-            <Stack direction={'row'} align={'center'}>
-                <Box>
-                    <Text
-                        transition={'all .3s ease'}
-                        _groupHover={{ color: 'white' }}
-                        fontWeight={500}
-                        color={'black'}>
-                        {label}
-                    </Text>
-                    <Text fontSize={'sm'} >{subLabel}</Text>
-                </Box>
-                <Flex
-                    transition={'all .3s ease'}
-                    transform={'translateX(-10px)'}
-                    opacity={0}
-                    _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-                    justify={'flex-end'}
-                    align={'center'}
-                    flex={1}>
-                </Flex>
-            </Stack>
-        </Link>
-    );
-};
-
-const MobileNav = () => {
-    return (
-        <Stack
-            bg={useColorModeValue('white', 'white')}
-            p={4}
-            display={{ md: 'none' }}>
-            {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} />
-            ))}
-        </Stack>
-    );
-};
-
-const MobileNavItem = ({ label, children, href }: NavItem) => {
-    const { isOpen, onToggle } = useDisclosure();
-
-    return (
-        <Stack spacing={4} onClick={children && onToggle}>
-            <Flex
-                py={2}
-                as={Link}
-                href={href ?? '#'}
-                justify={'space-between'}
-                align={'center'}
-                _hover={{
-                    textDecoration: 'none',
-                }}>
-                <Text
-                    fontWeight={600}
-                    color={useColorModeValue('white', 'white')}>
-                    {label}
-                </Text>
-
-            </Flex>
-
-            <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
-                <Stack
-                    mt={2}
-                    pl={4}
-                    borderLeft={1}
-                    borderStyle={'solid'}
-                    borderColor={useColorModeValue('white', 'white')}
-                    align={'start'}>
-                    {children &&
-                        children.map((child) => (
-                            <Link key={child.label} py={2} href={child.href}>
-                                {child.label}
-                            </Link>
-                        ))}
-                </Stack>
-            </Collapse>
-        </Stack>
-    );
-};
-
-interface NavItem {
-    label: string;
-    subLabel?: string;
-    children?: Array<NavItem>;
-    href?: string;
-}
-
-const NAV_ITEMS: Array<NavItem> = [
-    {
-        label: 'Categorias',
-        children: [
-            {
-                label: 'Casual',
-                href: '#',
-            },
-            {
-                label: 'Confortável',
-                href: '#',
-            },
-            {
-                label: 'Refrescante',
-                href: '#',
-            },
-            {
-                label: 'Descolado',
-                href: '#',
-            },
-        ],
-    },
-    {
-        label: 'Ofertas do dia'
-    }
-];

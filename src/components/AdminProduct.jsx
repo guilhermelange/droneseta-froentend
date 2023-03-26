@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   Box,
-  ChakraProvider,
-  extendTheme,
   Heading,
   Image,
   Table,
@@ -13,17 +11,6 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
-import { createBreakpoints } from '@chakra-ui/theme-tools';
-
-const breakpoints = createBreakpoints({
-  sm: '30em',
-  md: '48em',
-  lg: '62em',
-  xl: '80em',
-  '2xl': '96em',
-});
-
-const theme = extendTheme({ breakpoints });
 
 const products = [
   {
@@ -51,7 +38,7 @@ const products = [
 
 function ProductTable() {
   return (
-    <Table variant="simple">
+    <Table variant="striped" size={'sm'}>
       <Thead>
         <Tr>
           <Th>Nome do Produto</Th>
@@ -79,7 +66,7 @@ function ProductTable() {
 function App() {
   return (
       <Box textAlign="center" fontSize="xl">
-        <Heading as="h1" size="2xl" m="6">
+        <Heading as="h1" size="xl" m="6">
           Produtos Mais Vendidos
         </Heading>
         <VStack spacing={8}>

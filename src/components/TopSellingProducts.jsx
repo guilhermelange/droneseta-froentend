@@ -51,7 +51,7 @@ const products = [
 
 function ProductTable() {
   return (
-    <Table variant="simple">
+    <Table variant="striped">
       <Thead>
         <Tr>
           <Th>Nome do Produto</Th>

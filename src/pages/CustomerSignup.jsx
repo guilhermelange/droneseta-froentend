@@ -22,7 +22,7 @@ import { useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { primary } from '../styles/theme';
 import { useNavigate } from 'react-router-dom';
-import Template from '../pages/Template'
+import Template from './Template'
 
 
 interface FormDTO {
@@ -336,8 +336,6 @@ function CustomerSignup() {
                     </Box>
                 </Stack>
             </Flex>
-
-
         </>
     );
 }

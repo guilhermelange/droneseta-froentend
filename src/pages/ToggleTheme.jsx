@@ -2,7 +2,6 @@ import { Box, Button, Flex, Heading, useColorMode, VStack } from "@chakra-ui/rea
 
 export default function ToggleTheme() {
     const { colorMode, toggleColorMode } = useColorMode()
-    
 
     return (
         <Flex alignItems={'center'} justifyContent={'center'} h={'100vh'}>

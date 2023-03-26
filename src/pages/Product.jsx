@@ -15,18 +15,10 @@ import {
     ListItem,
 } from '@chakra-ui/react';
 import { MdLocalShipping } from 'react-icons/md';
-import Template from '../pages/Template'
+import Template from './Template'
 import { primary, primaryHex } from '../styles/theme';
 
-export default function ProductDetails() {
-    return (
-        <Template>
-            <Simple></Simple>
-        </Template>
-    )
-}
-
-function Simple() {
+function Product() {
     return (
         <Container maxW={'7xl'}>
             <SimpleGrid
@@ -167,19 +159,10 @@ function Simple() {
                     </Stack>
 
                     <Button
-                        // rounded={'none'}
                         w={'full'}
                         mt={8}
                         size={'lg'}
-                        // py={'7'}
-                        // bg={useColorModeValue('gray.900', 'gray.50')}
-                        // color={useColorModeValue('white', 'gray.900')}
                         colorScheme={primary}
-                        // textTransform={'uppercase'}
-                        // _hover={{
-                        //     transform: 'translateY(2px)',
-                        //     boxShadow: 'lg',
-                        // }}
                         >
                         Add to cart
                     </Button>
@@ -192,4 +175,12 @@ function Simple() {
             </SimpleGrid>
         </Container>
     );
+}
+
+export default function ProductDetails() {
+    return (
+        <Template>
+            <Product></Product>
+        </Template>
+    )
 }

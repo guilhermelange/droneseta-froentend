@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Image, Text, Container, useBreakpointValue } from "@chakra-ui/react";
+import { Box, SimpleGrid, Image, Text, Container, useBreakpointValue, useDisclosure, Collapse } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const products = [
@@ -46,9 +46,8 @@ const products = [
   },
 ];
 
-function Products() {
+export default function Products() {
   const navigate = useNavigate();
-
   const handleClick = (data: any) => {
     navigate('/product')
   }
@@ -58,18 +57,18 @@ function Products() {
     <Container maxW="container.xl" py={8}>
       <SimpleGrid columns={columns} spacing={6}>
         {products.map((product) => (
-          <Box key={product.id} borderWidth="1px" borderRadius="lg" overflow="hidden" onClick={handleClick} cursor={'pointer'}>
-            <Image src={product.image} alt={product.name} />
+          <Box key={product.id} borderWidth="1px" borderRadius="lg" overflow="hidden" onClick={handleClick} cursor={'pointer'} >
+            <Image src={product.image} alt={product.name} h={'150px'} w={'full'} />
             <Box p="6">
               <Box d="flex" alignItems="baseline">
                 <Text fontWeight="semibold" fontSize="sm" letterSpacing="wide">
                   {product.name}
                 </Text>
-                <Text ml="2" fontSize="sm" color="gray.500">
-                  ${product.price}
+                <Text fontSize="sm" color="blackAlpha.700">
+                  R$ {product.price}
                 </Text>
               </Box>
-              <Text mt="2" fontSize="sm" color="gray.500">
+              <Text mt="2" fontSize="sm" color="gray.500" >
                 {product.description}
               </Text>
             </Box>
@@ -79,5 +78,3 @@ function Products() {
     </Container>
   );
 }
-
-export default Products;
