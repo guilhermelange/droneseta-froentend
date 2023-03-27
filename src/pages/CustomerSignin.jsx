@@ -8,14 +8,13 @@ import {
   Link,
   Button,
   Text,
-  useColorModeValue,
   Image,
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Template from '../pages/Template'
-import { primary } from '../styles/theme';
+import { primary, primaryHex } from '../styles/theme';
 
 export default function Signin() {
   return (
@@ -30,15 +29,18 @@ function CustomerSignin() {
   const navigate = useNavigate();
 
   const handleClick = (data: any) => {
-    navigate('/admin')
+    navigate('/')
+  }
+
+  const handleSignup = (data: any) => {
+    navigate('/signup')
   }
 
   return (
     <Flex
       align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+      justify={'center'}>
+      <Stack spacing={8} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Flex justifyContent={'center'} alignItems={'center'} gap={2}>
             <Image src='logo.svg' h={'2em'}></Image>
@@ -52,11 +54,11 @@ function CustomerSignin() {
         </Stack>
         <Box
           rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
+          bg={'whiteAlpha.900'}
           p={6}>
-          <Text fontSize={'xl'} fontWeight={'bold'} w="100%" textAlign={'center'} fontWeight="normal" mb="0.5em">
-            Efetue o Login<Text display={'inline'} color={primary}>!</Text>
+          <Text fontSize={'xl'} fontWeight={'bold'} w="100%" textAlign={'center'} fontWeight="black" mb="0.5em">
+            Efetue o Login<Text display={'inline'} color={primaryHex}>!</Text>
           </Text>
           <Stack spacing={4}>
             <FormControl isInvalid={!!errors.cpf}>
@@ -91,7 +93,7 @@ function CustomerSignin() {
                 {errors.password && String(errors.password.message)}
               </FormErrorMessage>
             </FormControl>
-            <Stack spacing={10}>
+            <Stack spacing={4}>
               <Button
                 colorScheme={primary}
                 isLoading={isSubmitting}
@@ -100,6 +102,9 @@ function CustomerSignin() {
               >
                 Login
               </Button>
+              <Text color={'gray.500'} fontSize={'12px'}>Ainda não possui uma conta?
+                <Link onClick={handleSignup} color={primaryHex} ml={0.5}>Cadastre-se</Link>
+              </Text>
             </Stack>
           </Stack>
         </Box>

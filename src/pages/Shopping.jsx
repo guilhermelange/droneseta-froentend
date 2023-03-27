@@ -42,11 +42,11 @@ function ShoppingTable() {
     return (
         <Container maxW="container.xl">
             <Box textAlign="center" fontSize="xl">
-                <Heading size="xl" mb="6" pt={12}>
+                <Heading size="lg" mb="6" pt={12}>
                     Acompanhamento de Compras
                 </Heading>
                 <VStack spacing={8}>
-                    <Table variant="striped" size='md'>
+                    <Table variant="striped" size='md' colorScheme={'blackAlpha'}>
                         <Thead>
                             <Tr>
                                 <Th>Status do Pedido</Th>

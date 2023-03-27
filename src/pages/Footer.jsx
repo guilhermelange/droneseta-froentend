@@ -63,7 +63,7 @@ export default function Footer() {
             Droneseta
           </Text>
         </Flex>
-        <Text>©2023 Droneseta. Todos os direitos reservados</Text>
+        <Text fontSize={'sm'}>©2023 Droneseta. Todos os direitos reservados</Text>
         <Stack direction={'row'} spacing={6}>
           <SocialButton label={'Twitter'} href={'#'}>
             <FaTwitter />

@@ -19,11 +19,11 @@ const customers = [
     { id: 3, name: 'Carlos Pereira', amountSpent: 2345.67 },
 ];
 
-const itemsPerPage = 2;
+const itemsPerPage = 10;
 
 function CustomerTable({ customers }) {
     return (
-        <Table variant="striped" size={'sm'}>
+        <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
             <Thead>
                 <Tr>
                     <Th>Nome da Pessoa</Th>
@@ -42,7 +42,7 @@ function CustomerTable({ customers }) {
     );
 }
 
-function App() {
+function AdminCustomer() {
     const [currentPage, setCurrentPage] = useState(0);
 
     const handlePageClick = (data) => {
@@ -56,7 +56,7 @@ function App() {
 
     return (
         <Box textAlign="center" fontSize="xl">
-            <Heading as="h1" size="xl" m="6">
+            <Heading as="h1" size="lg" m="6">
                 Visualização de Clientes
             </Heading>
             <VStack spacing={8}>
@@ -74,4 +74,4 @@ function App() {
     );
 }
 
-export default App;
+export default AdminCustomer;

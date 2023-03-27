@@ -38,7 +38,7 @@ const products = [
 
 function ProductTable() {
   return (
-    <Table variant="striped" size={'sm'}>
+    <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
       <Thead>
         <Tr>
           <Th>Nome do Produto</Th>
@@ -66,7 +66,7 @@ function ProductTable() {
 function App() {
   return (
       <Box textAlign="center" fontSize="xl">
-        <Heading as="h1" size="xl" m="6">
+        <Heading as="h1" size="lg" m="6">
           Produtos Mais Vendidos
         </Heading>
         <VStack spacing={8}>

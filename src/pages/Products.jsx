@@ -44,6 +44,48 @@ const products = [
     price: 600,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   },
+  {
+    id: 7,
+    name: "Product 1",
+    image: "https://via.placeholder.com/150",
+    price: 100,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  },
+  {
+    id: 8,
+    name: "Product 2",
+    image: "https://via.placeholder.com/150",
+    price: 200,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  },
+  {
+    id: 9,
+    name: "Product 3",
+    image: "https://via.placeholder.com/150",
+    price: 300,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  },
+  {
+    id: 10,
+    name: "Product 4",
+    image: "https://via.placeholder.com/150",
+    price: 400,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  },
+  {
+    id: 11,
+    name: "Product 5",
+    image: "https://via.placeholder.com/150",
+    price: 500,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  },
+  {
+    id: 12,
+    name: "Product 6",
+    image: "https://via.placeholder.com/150",
+    price: 600,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  },
 ];
 
 export default function Products() {

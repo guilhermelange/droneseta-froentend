@@ -30,6 +30,7 @@ import {
   FiChevronDown,
   FiUser,
   FiShoppingBag,
+  FiWind
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
@@ -39,6 +40,7 @@ import AdminCustomer from '../components/AdminCustomer'
 import AdminProduct from '../components/AdminProduct'
 import AdminShopping from '../components/AdminShopping'
 import { headerBg } from '../styles/theme'
+import AdminTravel from '../components/AdminTravel';
 
 interface LinkItemProps {
   name: string;
@@ -48,7 +50,8 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Início', icon: FiHome, menu: 0 },
   { name: 'Clientes', icon: FiUser, menu: 1},
   { name: 'Produtos', icon: FiShoppingBag, menu: 2},
-  { name: 'Compras', icon: FiTrendingUp, menu: 3 }
+  { name: 'Compras', icon: FiTrendingUp, menu: 3 },
+  { name: 'Viagens', icon: FiWind, menu: 4 }
 ];
 
 
@@ -78,13 +81,13 @@ export default function Admin() {
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {menu === 0 && <HomeAdmin></HomeAdmin>}
         {menu === 1 && <AdminCustomer></AdminCustomer>}
         {menu === 2 && <AdminProduct></AdminProduct>}
         {menu === 3 && <AdminShopping></AdminShopping>}
+        {menu === 4 && <AdminTravel></AdminTravel>}
       </Box>
     </Box>
   );
@@ -100,7 +103,7 @@ const SidebarContent = ({ onClose, menu, setMenu, ...rest }: SidebarProps) => {
   return (
     <Box
       borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      borderRightColor={'whiteAlpha.300'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -215,8 +218,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               borderColor={useColorModeValue('gray.200', 'gray.700')}
               >
               {/* <MenuDivider /> */}
-              <MenuItem bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={() => {navigate('../admin-login')}}>Sair<
-                /MenuItem>
+              <MenuItem bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={() => {navigate('../admin-login')}}>Sair</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

@@ -20,7 +20,7 @@ import {
 
 import { useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { primary } from '../styles/theme';
+import { primary, primaryHex } from '../styles/theme';
 import { useNavigate } from 'react-router-dom';
 import Template from './Template'
 
@@ -35,10 +35,9 @@ function Form1({ errors, register }: FormDTO) {
 
     return (
         <>
-            <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-                Crie sua conta<Text display={'inline'} color={primary}>!</Text>
-            </Heading>
-            <Center>É simples e rápido</Center>
+            <Text fontSize={'2xl'} w="100%" textAlign={'center'} fontWeight="black" mb="2%">
+                Crie sua conta<Text display={'inline'} color={primaryHex}>!</Text>
+            </Text>
             <Stack spacing={4}>
                 <FormControl isInvalid={!!errors.cpf}>
                     <FormLabel htmlFor='cpf'>CPF</FormLabel>
@@ -244,14 +243,17 @@ function CustomerSignup() {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
     const navigate = useNavigate();
 
+
+    const handleSignin = (data: any) => {
+        navigate('/signin')
+    }
+
     return (
         <>
             <Flex
-                minH={'100vh'}
                 align={'center'}
-                justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
-                <Stack spacing={8} mx={'auto'} maxW={'4lg'} minW={'550px'} py={12} px={6}>
+                justify={'center'}>
+                <Stack spacing={8} maxW={'4lg'} minW={'550px'} py={12} px={6}>
                     <Stack align={'center'}>
                         <Flex justifyContent={'center'} alignItems={'center'} gap={2}>
                             <Image src='logo.svg' h={'2em'}></Image>
@@ -269,8 +271,8 @@ function CustomerSignup() {
                         minW={450}
                         p={6}
                         m="10px auto"
-                        bg={useColorModeValue('white', 'gray.700')}
-                        as="form">
+                        as="form"
+                        bg={'whiteAlpha.900'}>
                         <Progress
                             hasStripe
                             value={progress}
@@ -333,6 +335,9 @@ function CustomerSignup() {
                                 ) : null}
                             </Flex>
                         </ButtonGroup>
+                        <Text color={'gray.500'} fontSize={'12px'} mt={4}>Já possui uma conta?
+                            <Link onClick={handleSignin} color={primaryHex} ml={0.5}>Entre</Link>
+                        </Text>
                     </Box>
                 </Stack>
             </Flex>

@@ -36,7 +36,7 @@ const payments = [
 
 function PaymentTable({ onApprovePayment }) {
   return (
-    <Table variant="striped" size={'sm'}>
+    <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
       <Thead>
         <Tr>
           <Th>Nome da Pessoa</Th>
@@ -76,7 +76,7 @@ function App() {
 
   return (
     <Box textAlign="center" fontSize="xl">
-        <Heading as="h1" size="xl" m="6">
+        <Heading as="h1" size="lg" m="6">
           Aprovação Manual de Pagamentos
         </Heading>
         <VStack spacing={8}>

@@ -9,7 +9,13 @@ import {
     Input,
     InputGroup,
     InputRightElement,
-    Icon
+    Icon,
+    Avatar,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuDivider
 } from '@chakra-ui/react';
 import Footer from '../pages/Footer'
 import { headerBg } from '../styles/theme'
@@ -30,7 +36,7 @@ export default function Template({ children }: TemplateDTO) {
     const navigate = useNavigate();
     const query = useQuery();
     const [search, setSearch] = useState('');
-    
+
     useEffect(() => {
         setSearch(query.get('q') || '');
     }, [])
@@ -90,9 +96,11 @@ export default function Template({ children }: TemplateDTO) {
                     flex={{ base: 1, md: 0 }}
                     justify={'flex-end'}
                     direction={'row'}
-                    spacing={8}>
-                    <Box cursor={'pointer'} onClick={handleClickCart}>
-                        <FiShoppingCart color='white'/>
+                    spacing={8}
+                    alignItems={'center'}
+                    justifyContent={'center'}>
+                    <Box cursor={'pointer'} onClick={handleClickCart} >
+                        <FiShoppingCart color='white' />
                     </Box>
                     <Button
                         as={'a'}
@@ -108,9 +116,22 @@ export default function Template({ children }: TemplateDTO) {
                         onClick={handleClickLogin}>
                         Login
                     </Button>
+                    <Menu>
+                        <MenuButton py={2}
+                            transition="all 0.3s"
+                            _focus={{ boxShadow: 'none' }}>
+                            <Avatar size={'sm'} />
+                        </MenuButton>
+                        <MenuList bg={useColorModeValue(headerBg, headerBg)}
+                            borderColor={useColorModeValue('gray.200', 'gray.700')}>
+                            <MenuItem color={'white'} bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={() => {navigate('/shopping')}}>Compras</MenuItem>
+                            <MenuItem color={'white'} bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={() => {navigate('/')}}>Sair</MenuItem>
+                        </MenuList>
+                    </Menu>
+
                 </Stack>
             </Flex>
-            <Box minH={'calc(100vh - 124px)'} bg={useColorModeValue('gray.50', 'gray.800')}>
+            <Box minH={'calc(100vh - 124px)'} >
                 {children}
             </Box>
             <Footer></Footer>
