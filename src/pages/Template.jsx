@@ -73,11 +73,13 @@ export default function Template({ children }: TemplateDTO) {
                 borderBottom={1}
                 borderStyle={'solid'}
                 borderColor={useColorModeValue('gray.200', 'gray.900')}
-                align={'center'}>
-                <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} gap={4}>
+                align={'center'}
+                gap={{base: 2, md: 2, xl: 0}}
+                >
+                <Flex flex={{ base: 1, md: 1, xl: 1 }} justify={{ base: 'center', md: 'start' }} gap={4}>
                     <Flex justifyContent={'center'} alignItems={'center'} gap={3} onClick={handleClickLogo} cursor={'pointer'}>
                         <Image src='/logo.svg' h={'2em'} ></Image>
-                        <Text fontSize="xl" fontWeight="bold" color={useColorModeValue('white', 'white')}>
+                        <Text display={{base: 'none', md: 'inline', xl: 'inline'}} fontSize="xl" fontWeight="bold" color={useColorModeValue('white', 'white')}>
                             Droneseta
                         </Text>
                     </Flex>
@@ -99,10 +101,10 @@ export default function Template({ children }: TemplateDTO) {
                 </Flex>
 
                 <Stack
-                    flex={{ base: 1, md: 0 }}
+                    flex={0}
                     justify={'flex-end'}
                     direction={'row'}
-                    spacing={8}
+                    spacing={{base: '2', md: '4', xl: '8'}}
                     alignItems={'center'}
                     justifyContent={'center'}>
                     <Box cursor={'pointer'} onClick={handleClickCart} >
