@@ -18,18 +18,45 @@ import Template from './Template'
 import { primary, primaryHex } from '../styles/theme';
 import useSWR from 'swr'
 import { api, resources } from '../common/service/api'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { formatToBRL } from '../common/format';
+import { useContext } from 'react';
+import { SessionContext } from '../context/SessionContext';
 
 function Product() {
     const { id } = useParams();
     const { data, error, isLoading } = useSWR(`product/${id}`, api);
-    
+    const { cartState: [cartItems, setCartItems] } = useContext(SessionContext);
+    const navigate = useNavigate();
 
     if (error) return <div></div>
     if (isLoading) return <div></div>
 
     const product = data.data;
+    const productIsOnCart = cartItems ? cartItems.find(item => item.id === product.id) : false;
+
+    const handleAddToCart = (product) => {
+        let cart = cartItems;
+
+        if (!cart) {
+            cart = [];
+        }
+        const itemOnCart = cart.find(item => item.id === product.id);
+        
+        if (!itemOnCart) {
+            setCartItems([...cart, {
+                id: product.id,
+                name: product.name,
+                image: product.img,
+                price: product.price,
+                quantity: 1,
+            }])
+        }
+    }
+
+    const handleRedirectToCart = () => {
+        navigate('/cart')
+    }
 
     return (
         <Container maxW={'7xl'}>
@@ -90,7 +117,7 @@ function Product() {
                             <List spacing={2}>
                                 <ListItem>
                                     <Text as={'span'} fontWeight={'bold'}>
-                                       Tamanho:
+                                        Tamanho:
                                     </Text>{' '}
                                     {product.size}
                                 </ListItem>
@@ -104,14 +131,23 @@ function Product() {
                         </Box>
                     </Stack>
 
-                    <Button
+                    {!productIsOnCart &&  <Button
                         w={'full'}
                         mt={8}
                         size={'lg'}
                         colorScheme={primary}
-                        >
+                        onClick={() => { handleAddToCart(product) }}>
                         Adicionar ao carrinho
-                    </Button>
+                    </Button>}
+
+                    {productIsOnCart &&  <Button
+                        w={'full'}
+                        mt={8}
+                        size={'lg'}
+                        colorScheme={primary}
+                        onClick={() => { handleRedirectToCart()}}>
+                        Visualizar Carrinho
+                    </Button>}                    
 
                     <Stack direction="row" alignItems="center" justifyContent={'center'}>
                         <MdLocalShipping />

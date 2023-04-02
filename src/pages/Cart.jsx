@@ -1,48 +1,18 @@
-import { Box, Button, Container, Divider, Flex, HStack, IconButton, Image, Input, Stack, Text, useBreakpointValue, useNumberInput } from "@chakra-ui/react";
+import { Box, Button, Container, Divider, Flex, HStack, IconButton, Image, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 import { IoMdAdd, IoMdRemove } from "react-icons/io"
 import { useNavigate } from "react-router-dom";
 import { primary } from "../styles/theme";
 import Template from './Template'
 import { formatToBRL } from "../common/format";
-import { usePersistentState } from "../hook/UsePersistentState"
-import { useEffect } from "react";
-
-const dados = [
-  {
-    id: 1,
-    name: "Product 1",
-    image: "https://via.placeholder.com/150",
-    price: 100,
-    quantity: 2,
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    image: "https://via.placeholder.com/150",
-    price: 200,
-    quantity: 1,
-  },
-  {
-    id: 3,
-    name: "Product 3",
-    image: "https://via.placeholder.com/150",
-    price: 300,
-    quantity: 3,
-  },
-  {
-    id: 4,
-    name: "Product 3",
-    image: "https://via.placeholder.com/150",
-    price: 300,
-    quantity: 3,
-  },
-];
+import { useContext } from "react";
+import { SessionContext } from "../context/SessionContext";
+import { resources } from "../common/service/api"
 
 function Cart() {
   const isSmallerThanSm = useBreakpointValue({ base: true, sm: false });
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = usePersistentState("cart", []);
+  const { cartState: [cartItems, setCartItems] } = useContext(SessionContext);
 
   const handlePayment = (data: any) => {
     navigate('/shopping')
@@ -71,10 +41,6 @@ function Cart() {
     setCartItems([...cartItems]);
   }
 
-  useEffect(() => {
-    setCartItems(dados);
-  }, [])
-
   return (
     <Template>
       <Container maxW="container.xl" py={8}>
@@ -89,7 +55,7 @@ function Cart() {
                   backgroundColor={'whiteAlpha.700'}
                   _first={{ borderTopRadius: 'lg' }}
                   _last={{ borderBottomRadius: 'lg' }}>
-                  <Image src={item.image} alt={item.name} w="75px" h="75px" mr="4" />
+                  <Image src={resources + item.image} alt={item.name} w="75px" h="75px" mr="4" />
                   <Box flex="1">
                     <Text fontWeight="semibold" fontSize="sm">
                       {item.name}
@@ -107,7 +73,7 @@ function Cart() {
                           aria-label="Diminuir item"
                           icon={<IoMdRemove />}
                           ml="2"
-                          onClick={() => {handleMinusItem(item.id)}}
+                          onClick={() => { handleMinusItem(item.id) }}
                         />
                         <Text display={'inline'}>{item.quantity}</Text>
                         <IconButton
@@ -116,7 +82,7 @@ function Cart() {
                           aria-label="Adicionar item"
                           icon={<IoMdAdd />}
                           ml="2"
-                          onClick={() => {handlePlusItem(item.id)}}
+                          onClick={() => { handlePlusItem(item.id) }}
                         />
                       </HStack>
                     </Text>
@@ -150,9 +116,13 @@ function Cart() {
                     {cartItems && formatToBRL(cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0))}
                   </Text>
                 </Box>
-                <Box>
+                {cartItems && cartItems.length > 0 && <Box>
                   <Button colorScheme={primary} onClick={handlePayment}>Confirmar Compra</Button>
-                </Box>
+                </Box>}
+                {cartItems && cartItems.length <= 0 && 
+                  <Box>
+                    <Text fontSize={'sm'} color={'blackAlpha.700'}>Adicione itens ao carrinho para prosseguir!</Text>
+                  </Box>}
               </Stack>
             </Box>
           </Stack>
