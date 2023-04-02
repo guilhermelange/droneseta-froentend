@@ -58,7 +58,7 @@ export default function Footer() {
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}>
         <Flex justifyContent={'center'} alignItems={'center'} gap={3}>
-          <Image src='logo.svg' h={'2em'} ></Image>
+          <Image src='/logo.svg' h={'2em'} ></Image>
           <Text fontSize="xl" fontWeight="bold">
             Droneseta
           </Text>

@@ -1,10 +1,10 @@
 import Template from './Template'
 import Products from './Products';
 import { useContext } from 'react';
-import { SearchContext } from '../context/SearchContext';
+import { SessionContext } from '../context/SessionContext';
 
 export default function Search() {
-    const {searchState: [search,] } = useContext(SearchContext); 
+    const {searchState: [search,] } = useContext(SessionContext); 
 
     return (
         <Template>

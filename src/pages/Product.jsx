@@ -90,7 +90,7 @@ function Product() {
                             <List spacing={2}>
                                 <ListItem>
                                     <Text as={'span'} fontWeight={'bold'}>
-                                       Tamanho
+                                       Tamanho:
                                     </Text>{' '}
                                     {product.size}
                                 </ListItem>

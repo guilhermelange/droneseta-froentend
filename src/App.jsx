@@ -12,12 +12,12 @@ import Product from './pages/Product'
 import Cart from './pages/Cart'
 import Search from './pages/Search';
 import Shopping from './pages/Shopping';
-import {SearchProvider} from './context/SearchContext'
+import {SessionProvider} from './context/SessionContext'
 
 function App() {
   return (
     <div className="App">
-      <SearchProvider>
+      <SessionProvider>
         <BrowserRouter>
           <Routes>
             <Route path='/admin-login' element={<AdminLogin />}></Route>
@@ -34,7 +34,7 @@ function App() {
             <Route path='*' element={<NotFound />}></Route>
           </Routes>
         </BrowserRouter>
-      </SearchProvider>
+      </SessionProvider>
     </div>
   );
 }

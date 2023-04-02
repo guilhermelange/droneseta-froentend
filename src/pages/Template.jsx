@@ -15,7 +15,6 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuDivider
 } from '@chakra-ui/react';
 import Footer from '../pages/Footer'
 import { headerBg } from '../styles/theme'
@@ -23,9 +22,8 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { FiShoppingCart } from "react-icons/fi"
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from "../hook/UseQuery";
-import { useState } from 'react';
 import { useEffect } from 'react';
-import { SearchContext } from "../context/SearchContext"
+import { SessionContext } from "../context/SessionContext"
 import { useContext } from 'react';
 import { useRef } from 'react';
 
@@ -39,7 +37,7 @@ export default function Template({ children }: TemplateDTO) {
     const navigate = useNavigate();
     const query = useQuery();
 
-    const {searchState: [, setSearch] } = useContext(SearchContext);
+    const {searchState: [, setSearch] } = useContext(SessionContext);
     const searchRef = useRef("");
 
     useEffect(() => {
