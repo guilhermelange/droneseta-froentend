@@ -25,6 +25,9 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from "../hook/UseQuery";
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { SearchContext } from "../context/SearchContext"
+import { useContext } from 'react';
+import { useRef } from 'react';
 
 interface TemplateDTO {
     children: any
@@ -35,10 +38,14 @@ export default function Template({ children }: TemplateDTO) {
     const linkHoverColor = useColorModeValue('white', 'white');
     const navigate = useNavigate();
     const query = useQuery();
-    const [search, setSearch] = useState('');
+
+    const {searchState: [, setSearch] } = useContext(SearchContext);
+    const searchRef = useRef("");
 
     useEffect(() => {
-        setSearch(query.get('q') || '');
+        const queryValue = query.get('q') || '';
+        searchRef.current.value = queryValue;
+        setSearch(queryValue);
     }, [])
 
     const handleClickLogin = (data: any) => {
@@ -53,9 +60,9 @@ export default function Template({ children }: TemplateDTO) {
         navigate('/')
     }
 
-    const handleSearch = (data: any) => {
-        console.log(search)
-        navigate(`/search?q=${search}`)
+    const handleSearch = async (data: any) => {
+        await setSearch(searchRef.current.value);
+        navigate(`/search?q=${searchRef.current.value}`)
     }
 
     return (
@@ -71,7 +78,7 @@ export default function Template({ children }: TemplateDTO) {
                 align={'center'}>
                 <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} gap={4}>
                     <Flex justifyContent={'center'} alignItems={'center'} gap={3} onClick={handleClickLogo} cursor={'pointer'}>
-                        <Image src='logo.svg' h={'2em'} ></Image>
+                        <Image src='/logo.svg' h={'2em'} ></Image>
                         <Text fontSize="xl" fontWeight="bold" color={useColorModeValue('white', 'white')}>
                             Droneseta
                         </Text>
@@ -83,8 +90,9 @@ export default function Template({ children }: TemplateDTO) {
                             _focus={{
                                 backgroundColor: "var(--chakra-colors-gray-100)"
                             }}
-                            onChange={(e) => (setSearch(e.target.value))}
-                            value={search}
+                            ref={searchRef}
+                            // onChange={(e) => (setSearch(e.target.value))}
+                            // value={search}
                         />
                         <InputRightElement cursor={'pointer'} onClick={handleSearch}>
                             <Icon as={SearchIcon} color="blackAlpha.900" />
