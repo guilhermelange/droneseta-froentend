@@ -4,6 +4,7 @@ import {
     Container,
     Heading,
     Table,
+    TableContainer,
     Tbody,
     Td,
     Th,
@@ -46,26 +47,28 @@ function ShoppingTable() {
                     Acompanhamento de Compras
                 </Heading>
                 <VStack spacing={8}>
-                    <Table variant="striped" size='md' colorScheme={'blackAlpha'}>
-                        <Thead>
-                            <Tr>
-                                <Th>Status do Pedido</Th>
-                                <Th>Valor</Th>
-                                <Th>Itens Selecionados</Th>
-                                <Th>Prazo para Entrega</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {orders.map((order) => (
-                                <Tr key={order.id}>
-                                    <Td>{order.status}</Td>
-                                    <Td>R$ {order.value.toFixed(2)}</Td>
-                                    <Td>{order.items.join(', ')}</Td>
-                                    <Td>{order.deliveryTime}</Td>
+                    <TableContainer w={'full'}>
+                        <Table variant="striped" size='md' colorScheme={'blackAlpha'}>
+                            <Thead>
+                                <Tr>
+                                    <Th>Status do Pedido</Th>
+                                    <Th>Valor</Th>
+                                    <Th>Itens Selecionados</Th>
+                                    <Th>Prazo para Entrega</Th>
                                 </Tr>
-                            ))}
-                        </Tbody>
-                    </Table>
+                            </Thead>
+                            <Tbody>
+                                {orders.map((order) => (
+                                    <Tr key={order.id}>
+                                        <Td>{order.status}</Td>
+                                        <Td>R$ {order.value.toFixed(2)}</Td>
+                                        <Td>{order.items.join(', ')}</Td>
+                                        <Td>{order.deliveryTime}</Td>
+                                    </Tr>
+                                ))}
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
                 </VStack>
             </Box>
         </Container>

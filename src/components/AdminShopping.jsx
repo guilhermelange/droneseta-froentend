@@ -5,6 +5,7 @@ import {
   Heading,
   HStack,
   Table,
+  TableContainer,
   Tbody,
   Td,
   Th,
@@ -36,30 +37,32 @@ const payments = [
 
 function PaymentTable({ onApprovePayment }) {
   return (
-    <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
-      <Thead>
-        <Tr>
-          <Th>Nome da Pessoa</Th>
-          <Th>Número do Cartão de Crédito</Th>
-          <Th>Valor da Compra</Th>
-          <Th>Ação</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        {payments.map((payment) => (
-          <Tr key={payment.id}>
-            <Td>{payment.name}</Td>
-            <Td>{payment.creditCard}</Td>
-            <Td>R$ {payment.amount.toFixed(2)}</Td>
-            <Td>
-              <Button colorScheme="green" onClick={() => onApprovePayment(payment.id)}>
-                Confirmar Pagamento
-              </Button>
-            </Td>
+    <TableContainer w={'full'}>
+      <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
+        <Thead>
+          <Tr>
+            <Th>Nome da Pessoa</Th>
+            <Th>Número do Cartão de Crédito</Th>
+            <Th>Valor da Compra</Th>
+            <Th>Ação</Th>
           </Tr>
-        ))}
-      </Tbody>
-    </Table>
+        </Thead>
+        <Tbody>
+          {payments.map((payment) => (
+            <Tr key={payment.id}>
+              <Td>{payment.name}</Td>
+              <Td>{payment.creditCard}</Td>
+              <Td>R$ {payment.amount.toFixed(2)}</Td>
+              <Td>
+                <Button colorScheme="green" onClick={() => onApprovePayment(payment.id)}>
+                  Confirmar Pagamento
+                </Button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
   );
 }
 
@@ -76,18 +79,18 @@ function App() {
 
   return (
     <Box textAlign="center" fontSize="xl">
-        <Heading as="h1" size="lg" m="6">
-          Aprovação Manual de Pagamentos
-        </Heading>
-        <VStack spacing={8}>
-          <PaymentTable onApprovePayment={onApprovePayment} />
-          <HStack>
-            <Button colorScheme="blue" onClick={generateReport}>
-              Gerar Relatório
-            </Button>
-          </HStack>
-        </VStack>
-      </Box>
+      <Heading as="h1" size="lg" m="6">
+        Aprovação Manual de Pagamentos
+      </Heading>
+      <VStack spacing={8}>
+        <PaymentTable onApprovePayment={onApprovePayment} />
+        <HStack>
+          <Button colorScheme="blue" onClick={generateReport}>
+            Gerar Relatório
+          </Button>
+        </HStack>
+      </VStack>
+    </Box>
   )
 }
 

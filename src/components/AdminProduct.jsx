@@ -4,6 +4,7 @@ import {
   Heading,
   Image,
   Table,
+  TableContainer,
   Tbody,
   Td,
   Th,
@@ -38,41 +39,43 @@ const products = [
 
 function ProductTable() {
   return (
-    <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
-      <Thead>
-        <Tr>
-          <Th>Nome do Produto</Th>
-          <Th>Imagem</Th>
-          <Th>Quantidade Vendida</Th>
-          <Th>Valor Obtido</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        {products.map((product) => (
-          <Tr key={product.id}>
-            <Td>{product.name}</Td>
-            <Td>
-              <Image boxSize="100px" src={product.imageUrl} alt={product.name} />
-            </Td>
-            <Td>{product.quantitySold}</Td>
-            <Td>R$ {(product.price * product.quantitySold).toFixed(2)}</Td>
+    <TableContainer w={'full'}>
+      <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
+        <Thead>
+          <Tr>
+            <Th>Nome do Produto</Th>
+            <Th>Imagem</Th>
+            <Th>Quantidade Vendida</Th>
+            <Th>Valor Obtido</Th>
           </Tr>
-        ))}
-      </Tbody>
-    </Table>
+        </Thead>
+        <Tbody>
+          {products.map((product) => (
+            <Tr key={product.id}>
+              <Td>{product.name}</Td>
+              <Td>
+                <Image boxSize="100px" src={product.imageUrl} alt={product.name} />
+              </Td>
+              <Td>{product.quantitySold}</Td>
+              <Td>R$ {(product.price * product.quantitySold).toFixed(2)}</Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
   );
 }
 
 function App() {
   return (
-      <Box textAlign="center" fontSize="xl">
-        <Heading as="h1" size="lg" m="6">
-          Produtos Mais Vendidos
-        </Heading>
-        <VStack spacing={8}>
-          <ProductTable />
-        </VStack>
-      </Box>
+    <Box textAlign="center" fontSize="xl">
+      <Heading as="h1" size="lg" m="6">
+        Produtos Mais Vendidos
+      </Heading>
+      <VStack spacing={8}>
+        <ProductTable />
+      </VStack>
+    </Box>
   );
 }
 

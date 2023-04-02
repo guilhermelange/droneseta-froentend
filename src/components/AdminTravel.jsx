@@ -3,6 +3,7 @@ import {
     Box,
     Heading,
     Table,
+    TableContainer,
     Tbody,
     Td,
     Th,
@@ -45,24 +46,26 @@ const itemsPerPage = 10;
 
 function TravelsTable({ travels }) {
     return (
-        <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
-            <Thead>
-                <Tr>
-                    <Th>Id</Th>
-                    <Th>Quantidade</Th>
-                    <Th>Status</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                {travels.map((customer) => (
-                    <Tr key={customer.id}>
-                        <Td>{customer.id}</Td>
-                        <Td>{customer.count}</Td>
-                        <Td>{customer.state}</Td>
+        <TableContainer w={'full'}>
+            <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
+                <Thead>
+                    <Tr>
+                        <Th>Id</Th>
+                        <Th>Quantidade</Th>
+                        <Th>Status</Th>
                     </Tr>
-                ))}
-            </Tbody>
-        </Table>
+                </Thead>
+                <Tbody>
+                    {travels.map((customer) => (
+                        <Tr key={customer.id}>
+                            <Td>{customer.id}</Td>
+                            <Td>{customer.count}</Td>
+                            <Td>{customer.state}</Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        </TableContainer>
     );
 }
 

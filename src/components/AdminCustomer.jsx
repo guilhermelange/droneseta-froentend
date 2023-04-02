@@ -3,6 +3,7 @@ import {
     Box,
     Heading,
     Table,
+    TableContainer,
     Tbody,
     Td,
     Th,
@@ -23,22 +24,24 @@ const itemsPerPage = 10;
 
 function CustomerTable({ customers }) {
     return (
-        <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
-            <Thead>
-                <Tr>
-                    <Th>Nome da Pessoa</Th>
-                    <Th>Valor em Compras</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                {customers.map((customer) => (
-                    <Tr key={customer.id}>
-                        <Td>{customer.name}</Td>
-                        <Td>R$ {customer.amountSpent.toFixed(2)}</Td>
+        <TableContainer w={'full'}>
+            <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
+                <Thead>
+                    <Tr>
+                        <Th>Nome da Pessoa</Th>
+                        <Th>Valor em Compras</Th>
                     </Tr>
-                ))}
-            </Tbody>
-        </Table>
+                </Thead>
+                <Tbody>
+                    {customers.map((customer) => (
+                        <Tr key={customer.id}>
+                            <Td>{customer.name}</Td>
+                            <Td>R$ {customer.amountSpent.toFixed(2)}</Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        </TableContainer>
     );
 }
 
