@@ -104,7 +104,7 @@ function AdminProduct() {
             </Heading>
             <Box d="flex" flexDirection={{ base: 'column', md: 'row' }}>
                 <Box flex="1" mr={{ md: 4 }}>
-                    {product.img && <Image mb={2} src={resources + product.img} h={'200px'}></Image>}
+                    {isUpdate && product.img && <Image mb={2} src={resources + product.img} h={'200px'}></Image>}
                     {isUpdate && <FormControl mb={4}>
                         <FormLabel htmlFor="id">ID</FormLabel>
                         <Input id="id" name="id" placeholder="ID" isReadOnly value={idPath} />
