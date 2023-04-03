@@ -66,7 +66,7 @@ function AdminProduct() {
                 <IconButton
                     size={'sm'}
                     variant="outline"
-                    colorScheme="blackAlpha"
+                    colorScheme="gray"
                     aria-label="Add item"
                     icon={<FaPlus />}
                     onClick={handleNewProduct}
