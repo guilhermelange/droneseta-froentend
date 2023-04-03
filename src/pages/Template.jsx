@@ -37,8 +37,9 @@ export default function Template({ children }: TemplateDTO) {
     const navigate = useNavigate();
     const query = useQuery();
 
-    const {searchState: [, setSearch] } = useContext(SessionContext);
+    const { searchState: [, setSearch], isAuthenticated } = useContext(SessionContext);
     const searchRef = useRef("");
+    const logged = isAuthenticated();
 
     useEffect(() => {
         const queryValue = query.get('q') || '';
@@ -74,12 +75,12 @@ export default function Template({ children }: TemplateDTO) {
                 borderStyle={'solid'}
                 borderColor={useColorModeValue('gray.200', 'gray.900')}
                 align={'center'}
-                gap={{base: 2, md: 2, xl: 0}}
-                >
+                gap={{ base: 2, md: 2, xl: 0 }}
+            >
                 <Flex flex={{ base: 1, md: 1, xl: 1 }} justify={{ base: 'center', md: 'start' }} gap={4}>
                     <Flex justifyContent={'center'} alignItems={'center'} gap={3} onClick={handleClickLogo} cursor={'pointer'}>
                         <Image src='/logo.svg' h={'2em'} ></Image>
-                        <Text display={{base: 'none', md: 'inline', xl: 'inline'}} fontSize="xl" fontWeight="bold" color={useColorModeValue('white', 'white')}>
+                        <Text display={{ base: 'none', md: 'inline', xl: 'inline' }} fontSize="xl" fontWeight="bold" color={useColorModeValue('white', 'white')}>
                             Droneseta
                         </Text>
                     </Flex>
@@ -91,8 +92,8 @@ export default function Template({ children }: TemplateDTO) {
                                 backgroundColor: "var(--chakra-colors-gray-100)"
                             }}
                             ref={searchRef}
-                            // onChange={(e) => (setSearch(e.target.value))}
-                            // value={search}
+                        // onChange={(e) => (setSearch(e.target.value))}
+                        // value={search}
                         />
                         <InputRightElement cursor={'pointer'} onClick={handleSearch}>
                             <Icon as={SearchIcon} color="blackAlpha.900" />
@@ -104,13 +105,14 @@ export default function Template({ children }: TemplateDTO) {
                     flex={0}
                     justify={'flex-end'}
                     direction={'row'}
-                    spacing={{base: '2', md: '4', xl: '8'}}
+                    spacing={{ base: '2', md: '4', xl: '8' }}
                     alignItems={'center'}
                     justifyContent={'center'}>
                     <Box cursor={'pointer'} onClick={handleClickCart} >
                         <FiShoppingCart color='white' />
                     </Box>
-                    <Button
+
+                    {!logged && <Button
                         as={'a'}
                         fontSize={'sm'}
                         fontWeight={400}
@@ -123,20 +125,20 @@ export default function Template({ children }: TemplateDTO) {
                         }}
                         onClick={handleClickLogin}>
                         Login
-                    </Button>
-                    <Menu>
+                    </Button>}
+                    
+                    {logged && <Menu>
                         <MenuButton py={2}
                             transition="all 0.3s"
                             _focus={{ boxShadow: 'none' }}>
                             <Avatar size={'sm'} />
                         </MenuButton>
-                        <MenuList bg={useColorModeValue(headerBg, headerBg)}
-                            borderColor={useColorModeValue('gray.200', 'gray.700')}>
-                            <MenuItem color={'white'} bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={() => {navigate('/shopping')}}>Compras</MenuItem>
-                            <MenuItem color={'white'} bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={() => {navigate('/')}}>Sair</MenuItem>
+                        <MenuList bg={headerBg}
+                            borderColor={'gray.200'}>
+                            <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={() => { navigate('/shopping') }}>Compras</MenuItem>
+                            <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={() => { navigate('/') }}>Sair</MenuItem>
                         </MenuList>
-                    </Menu>
-
+                    </Menu>}
                 </Stack>
             </Flex>
             <Box minH={'calc(100vh - 124px)'} >

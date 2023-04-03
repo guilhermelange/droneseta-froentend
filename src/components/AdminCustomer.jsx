@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {
     Box,
     Heading,
+    IconButton,
+    Stack,
     Table,
     TableContainer,
     Tbody,
@@ -13,46 +15,36 @@ import {
 } from '@chakra-ui/react';
 import ReactPaginate from 'react-paginate';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import useSWR, { useSWRConfig } from 'swr'
+import { api } from '../common/service/api'
+import { FaTrash, FaEdit } from "react-icons/fa";
 
-const customers = [
-    { id: 1, name: 'João Silva', amountSpent: 1234.56 },
-    { id: 2, name: 'Maria Souza', amountSpent: 789.01 },
-    { id: 3, name: 'Carlos Pereira', amountSpent: 2345.67 },
-];
 
-const itemsPerPage = 10;
-
-function CustomerTable({ customers }) {
-    return (
-        <TableContainer w={'full'}>
-            <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
-                <Thead>
-                    <Tr>
-                        <Th>Nome da Pessoa</Th>
-                        <Th>Valor em Compras</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {customers.map((customer) => (
-                        <Tr key={customer.id}>
-                            <Td>{customer.name}</Td>
-                            <Td>R$ {customer.amountSpent.toFixed(2)}</Td>
-                        </Tr>
-                    ))}
-                </Tbody>
-            </Table>
-        </TableContainer>
-    );
-}
+const itemsPerPage = 8;
 
 function AdminCustomer() {
+    const { mutate } = useSWRConfig()
     const [currentPage, setCurrentPage] = useState(0);
 
     const handlePageClick = (data) => {
         setCurrentPage(data.selected);
     };
 
-    const currentCustomers = customers.slice(
+    const handleEdit = (id) => {
+
+    }
+
+    const handleDelete = async (id) => {
+        await api.delete(`/customer/${id}`);
+        mutate("/customer");
+    }
+
+    const { data: customers, error, isLoading } = useSWR("/customer", api);
+
+    if (error) return <div></div>
+    if (isLoading) return <div></div>
+
+    const currentCustomers = customers.data.slice(
         currentPage * itemsPerPage,
         (currentPage + 1) * itemsPerPage
     );
@@ -60,14 +52,53 @@ function AdminCustomer() {
     return (
         <Box textAlign="center" fontSize="xl">
             <Heading as="h1" size="lg" m="6">
-                Visualização de Clientes
+                Administração de Clientes
             </Heading>
             <VStack spacing={8}>
-                <CustomerTable customers={currentCustomers} />
+                <TableContainer w={'full'}>
+                    <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
+                        <Thead>
+                            <Tr>
+                                <Th>Nome</Th>
+                                <Th>CPF</Th>
+                                <Th>Cartão</Th>
+                                <Th>Ação</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {currentCustomers.map((customer) => (
+                                <Tr key={customer.id}>
+                                    <Td>{customer.name}</Td>
+                                    <Td>{customer.cpf}</Td>
+                                    <Td>{customer.creditCard}</Td>
+                                    <Td>
+                                        <Stack direction={'row'}>
+                                            <IconButton
+                                                size={'sm'}
+                                                variant="outline"
+                                                colorScheme="gray"
+                                                aria-label="Edit item"
+                                                icon={<FaEdit />}
+                                                onClick={() => handleEdit(customer.id)} />
+                                            <IconButton
+                                                size={'sm'}
+                                                variant="outline"
+                                                colorScheme="gray"
+                                                aria-label="Remove item"
+                                                icon={<FaTrash />}
+                                                mr="0"
+                                                onClick={() => handleDelete(customer.id)} />
+                                        </Stack>
+                                    </Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </Table>
+                </TableContainer>
                 <ReactPaginate
                     previousLabel={<MdKeyboardArrowLeft />}
                     nextLabel={<MdKeyboardArrowRight />}
-                    pageCount={Math.ceil(customers.length / itemsPerPage)}
+                    pageCount={Math.ceil(customers.data.length / itemsPerPage)}
                     onPageChange={handlePageClick}
                     containerClassName={'pagination'}
                     activeClassName={'active'}

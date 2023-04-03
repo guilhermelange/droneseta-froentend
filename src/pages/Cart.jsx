@@ -119,7 +119,7 @@ function Cart() {
                 {cartItems && cartItems.length > 0 && <Box>
                   <Button colorScheme={primary} onClick={handlePayment}>Confirmar Compra</Button>
                 </Box>}
-                {cartItems && cartItems.length <= 0 && 
+                {(cartItems && cartItems.length <= 0) || !cartItems && 
                   <Box>
                     <Text fontSize={'sm'} color={'blackAlpha.700'}>Adicione itens ao carrinho para prosseguir!</Text>
                   </Box>}

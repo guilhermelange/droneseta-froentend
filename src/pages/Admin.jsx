@@ -37,10 +37,11 @@ import { ReactText } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HomeAdmin from '../components/HomeAdmin'
 import AdminCustomer from '../components/AdminCustomer'
-import AdminProduct from '../components/AdminProduct'
+import AdminProductSales from '../components/AdminProductSales'
 import AdminShopping from '../components/AdminShopping'
 import { headerBg } from '../styles/theme'
 import AdminTravel from '../components/AdminTravel';
+import AdminProduct from '../components/AdminProduct'
 
 interface LinkItemProps {
   name: string;
@@ -51,7 +52,8 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Clientes', icon: FiUser, menu: 1},
   { name: 'Produtos', icon: FiShoppingBag, menu: 2},
   { name: 'Compras', icon: FiTrendingUp, menu: 3 },
-  { name: 'Viagens', icon: FiWind, menu: 4 }
+  { name: 'Viagens', icon: FiWind, menu: 4 },
+  { name: 'Mais Vendidos', icon: FiShoppingBag, menu: 5}
 ];
 
 
@@ -88,6 +90,7 @@ export default function Admin() {
         {menu === 2 && <AdminProduct></AdminProduct>}
         {menu === 3 && <AdminShopping></AdminShopping>}
         {menu === 4 && <AdminTravel></AdminTravel>}
+        {menu === 5 && <AdminProductSales></AdminProductSales>}
       </Box>
     </Box>
   );
