@@ -1,6 +1,6 @@
 import { Box, SimpleGrid, Image, Text, Container, useBreakpointValue, useDisclosure, Collapse } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { api, resources } from '../common/service/api'
+import { api } from '../common/service/api'
 import { formatToBRL } from "../common/format"
 import useSWR from 'swr'
 
@@ -33,7 +33,7 @@ export default function Products({name}) {
                cursor={'pointer'}
                backgroundColor={"whiteAlpha.500"}
                onClick={() => {handleClick(product.id)}}>
-            <Image src={resources + product.img} alt={product.name} h={'150px'} w={'full'} />
+            <Image src={'/static/' + product.img} alt={product.name} h={'150px'} w={'full'} />
             <Box p="6">
               <Box d="flex" alignItems="baseline">
                 <Text fontWeight="semibold" fontSize="sm" letterSpacing="wide">

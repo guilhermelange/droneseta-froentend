@@ -15,7 +15,7 @@ import {
     Textarea,
     useToast,
 } from '@chakra-ui/react';
-import { api, resources } from '../common/service/api'
+import { api } from '../common/service/api'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { primary } from '../styles/theme';
@@ -104,7 +104,7 @@ function AdminProduct() {
             </Heading>
             <Box d="flex" flexDirection={{ base: 'column', md: 'row' }}>
                 <Box flex="1" mr={{ md: 4 }}>
-                    {isUpdate && product.img && <Image mb={2} src={resources + product.img} h={'200px'}></Image>}
+                    {isUpdate && product.img && <Image mb={2} src={'/static/' + product.img} h={'200px'}></Image>}
                     {isUpdate && <FormControl mb={4}>
                         <FormLabel htmlFor="id">ID</FormLabel>
                         <Input id="id" name="id" placeholder="ID" isReadOnly value={idPath} />

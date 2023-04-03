@@ -17,30 +17,6 @@ import useSWR from 'swr'
 import { api } from '../common/service/api'
 import { formatToBRL } from '../common/format';
 
-const orders = [
-    {
-        id: 1,
-        status: 'Entregue',
-        value: 123.45,
-        items: ['Item 1', 'Item 2'],
-        deliveryTime: '3 dias',
-    },
-    {
-        id: 2,
-        status: 'Em trânsito',
-        value: 67.89,
-        items: ['Item 3', 'Item 4'],
-        deliveryTime: '5 dias',
-    },
-    {
-        id: 3,
-        status: 'Aguardando pagamento',
-        value: 98.76,
-        items: ['Item 5', 'Item 6'],
-        deliveryTime: '7 dias',
-    },
-];
-
 function ShoppingTable() {
     const { data: orders, error, isLoading } = useSWR("/order/customer", () =>
         api.get("/order/customer/1517").then(response => response.data)
