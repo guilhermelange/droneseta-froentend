@@ -13,6 +13,12 @@ import Cart from './pages/Cart'
 import Search from './pages/Search';
 import Shopping from './pages/Shopping';
 import {SessionProvider} from './context/SessionContext'
+import HomeAdmin from './components/HomeAdmin';
+import AdminCustomer from './components/AdminCustomer';
+import AdminProduct from './components/AdminProduct';
+import AdminTravel from './components/AdminTravel';
+import AdminShopping from './components/AdminShopping';
+import AdminProductSales from './components/AdminProductSales'
 
 function App() {
   return (
@@ -21,7 +27,12 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/admin-login' element={<AdminLogin />}></Route>
-            <Route path='/admin' element={<Admin />}></Route>
+            <Route path='/admin' element={<Admin><HomeAdmin/></Admin>}></Route>
+            <Route path='/admin/customer' element={<Admin><AdminCustomer/></Admin>}></Route>
+            <Route path='/admin/product' element={<Admin><AdminProduct/></Admin>}></Route>
+            <Route path='/admin/shopping' element={<Admin><AdminShopping/></Admin>}></Route>
+            <Route path='/admin/travel' element={<Admin><AdminTravel/></Admin>}></Route>
+            <Route path='/admin/productsales' element={<Admin><AdminProductSales/></Admin>}></Route>
             <Route path='/signup' element={<CustomerSignup />}></Route>
             <Route path='/signin' element={<CustomerSignin />}></Route>
             <Route path='/' element={<Home />}></Route>

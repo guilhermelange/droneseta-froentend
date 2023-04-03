@@ -26,6 +26,7 @@ const itemsPerPage = 10;
 function AdminProduct() {
     const { mutate } = useSWRConfig()
     const [currentPage, setCurrentPage] = useState(0);
+    const [view, setView] = useState(0);
 
     const handlePageClick = (data) => {
         setCurrentPage(data.selected);

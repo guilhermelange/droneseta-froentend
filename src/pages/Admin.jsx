@@ -48,15 +48,15 @@ interface LinkItemProps {
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Clientes', icon: FiUser, menu: 1},
-  { name: 'Produtos', icon: FiShoppingBag, menu: 2},
-  { name: 'Pagamentos', icon: FiTrendingUp, menu: 3 },
-  { name: 'Viagens', icon: FiWind, menu: 4 },
-  { name: 'Mais Vendidos', icon: FiShoppingBag, menu: 5}
+  { name: 'Clientes', icon: FiUser, menu: 1, link: "/admin/customer"},
+  { name: 'Produtos', icon: FiShoppingBag, menu: 2, link: "/admin/product"},
+  { name: 'Pagamentos', icon: FiTrendingUp, menu: 3, link: "/admin/shopping"},
+  { name: 'Viagens', icon: FiWind, menu: 4, link: "/admin/travel" },
+  { name: 'Mais Vendidos', icon: FiShoppingBag, menu: 5, link: "/admin/productsales"}
 ];
 
 
-export default function Admin() {
+export default function Admin({children}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [menu, setMenu] = useState(0);
 
@@ -84,12 +84,13 @@ export default function Admin() {
       </Drawer>
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-        {menu === 0 && <HomeAdmin></HomeAdmin>}
+        {/* {menu === 0 && <HomeAdmin></HomeAdmin>}
         {menu === 1 && <AdminCustomer></AdminCustomer>}
         {menu === 2 && <AdminProduct></AdminProduct>}
         {menu === 3 && <AdminShopping></AdminShopping>}
         {menu === 4 && <AdminTravel></AdminTravel>}
-        {menu === 5 && <AdminProductSales></AdminProductSales>}
+        {menu === 5 && <AdminProductSales></AdminProductSales>} */}
+        {children}
       </Box>
     </Box>
   );
@@ -102,6 +103,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, menu, setMenu, ...rest }: SidebarProps) => {
+  const navigate = useNavigate();
   return (
     <Box
       borderRight="1px"
@@ -123,7 +125,7 @@ const SidebarContent = ({ onClose, menu, setMenu, ...rest }: SidebarProps) => {
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} onClick={() => {
-          setMenu(link.menu)
+          navigate(link.link);
         }}>
           {link.name}
         </NavItem>
