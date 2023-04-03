@@ -48,10 +48,9 @@ interface LinkItemProps {
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Início', icon: FiHome, menu: 0 },
   { name: 'Clientes', icon: FiUser, menu: 1},
   { name: 'Produtos', icon: FiShoppingBag, menu: 2},
-  { name: 'Compras', icon: FiTrendingUp, menu: 3 },
+  { name: 'Pagamentos', icon: FiTrendingUp, menu: 3 },
   { name: 'Viagens', icon: FiWind, menu: 4 },
   { name: 'Mais Vendidos', icon: FiShoppingBag, menu: 5}
 ];

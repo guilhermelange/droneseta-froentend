@@ -3,13 +3,11 @@ import {
     Box,
     Heading,
     IconButton,
-    Image,
     Stack,
     Table,
     TableContainer,
     Tbody,
     Td,
-    Text,
     Th,
     Thead,
     Tr,
@@ -21,7 +19,6 @@ import useSWR, { useSWRConfig } from 'swr'
 import { api } from '../common/service/api'
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { formatToBRL } from '../common/format'
-import { useReducer } from 'react';
 
 
 const itemsPerPage = 10;

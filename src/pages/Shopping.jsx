@@ -13,7 +13,9 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import Template from './Template'
-import { primary } from '../styles/theme';
+import useSWR from 'swr'
+import { api } from '../common/service/api'
+import { formatToBRL } from '../common/format';
 
 const orders = [
     {
@@ -40,6 +42,13 @@ const orders = [
 ];
 
 function ShoppingTable() {
+    const { data: orders, error, isLoading } = useSWR("/order/customer", () =>
+        api.get("/order/customer/1517").then(response => response.data)
+    );
+
+    if (error) return <div></div>
+    if (isLoading) return <div></div>
+    
     return (
         <Container maxW="container.xl">
             <Box textAlign="center" fontSize="xl">
@@ -48,7 +57,7 @@ function ShoppingTable() {
                 </Heading>
                 <VStack spacing={8}>
                     <TableContainer w={'full'}>
-                        <Table variant="striped" size='md' colorScheme={'blackAlpha'}>
+                        <Table variant="striped" size='sm' colorScheme={'blackAlpha'}>
                             <Thead>
                                 <Tr>
                                     <Th>Status do Pedido</Th>
@@ -61,8 +70,8 @@ function ShoppingTable() {
                                 {orders.map((order) => (
                                     <Tr key={order.id}>
                                         <Td>{order.status}</Td>
-                                        <Td>R$ {order.value.toFixed(2)}</Td>
-                                        <Td>{order.items.join(', ')}</Td>
+                                        <Td>{formatToBRL(order.price)}</Td>
+                                        <Td>{(order?.items ? order.items : []).join(', ')}</Td>
                                         <Td>{order.deliveryTime}</Td>
                                     </Tr>
                                 ))}
