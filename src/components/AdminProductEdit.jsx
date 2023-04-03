@@ -7,6 +7,7 @@ import {
     FormLabel,
     Heading,
     Icon,
+    Image,
     Input,
     Select,
     Stack,
@@ -14,7 +15,7 @@ import {
     Textarea,
     useToast,
 } from '@chakra-ui/react';
-import { api } from '../common/service/api'
+import { api, resources } from '../common/service/api'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { primary } from '../styles/theme';
@@ -45,7 +46,6 @@ function AdminProduct() {
     }, [])
 
     const handleUpdate = async () => {
-        console.log(product);
         api.put(`/product/${idPath}`, product)
             .then(e => {
                 toast({
@@ -104,13 +104,14 @@ function AdminProduct() {
             </Heading>
             <Box d="flex" flexDirection={{ base: 'column', md: 'row' }}>
                 <Box flex="1" mr={{ md: 4 }}>
+                    {product.img && <Image mb={2} src={resources + product.img} h={'200px'}></Image>}
                     {isUpdate && <FormControl mb={4}>
                         <FormLabel htmlFor="id">ID</FormLabel>
                         <Input id="id" name="id" placeholder="ID" isReadOnly value={idPath} />
                     </FormControl>}
                     <FormControl mb={4}>
                         <FormLabel htmlFor="name">Nome</FormLabel>
-                        <Input id="name" name="name" placeholder="Nome" value={product?.name}
+                        <Input colorScheme={'blackAlpha'} id="name" name="name" placeholder="Nome" value={product?.name}
                             onChange={e => { setProduct({ ...product, name: e.target.value }) }} />
                     </FormControl>
                     <FormControl mb={4}>
@@ -137,13 +138,17 @@ function AdminProduct() {
                     </FormControl>
                     <FormControl mb={4}>
                         <FormLabel htmlFor="price">Preço</FormLabel>
-                        <Input type='number' id="price" name="price" placeholder="Preço" value={product?.price}
+                        <Input step={'any'} type='number' id="price" name="price" placeholder="Preço" value={product?.price}
                             onChange={e => { setProduct({ ...product, price: +e.target.value }) }} />
                     </FormControl>
                     <FormControl mb={4}>
                         <FormLabel htmlFor="stock">Estoque</FormLabel>
-                        <Input type='number' id="stock" name="stock" placeholder="Estoque" value={product?.stock}
+                        <Input step={1} type='number' id="stock" name="stock" placeholder="Estoque" value={product?.stock}
                             onChange={e => { setProduct({ ...product, stock: +e.target.value }) }} />
+                    </FormControl>
+                    <FormControl mb={4}>
+                        <FormLabel htmlFor="img">Imagem</FormLabel>
+                        <Input p={1} type='file' id="img" name="img" placeholder="Imagem"/>
                     </FormControl>
                     <FormControl mb={4}>
                         <Stack direction={'row'}>

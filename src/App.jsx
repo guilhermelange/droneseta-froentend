@@ -20,6 +20,7 @@ import AdminTravel from './components/AdminTravel';
 import AdminShopping from './components/AdminShopping';
 import AdminProductSales from './components/AdminProductSales'
 import AdminProductEdit from './components/AdminProductEdit'
+import AdminCustomerEdit from './components/AdminCustomerEdit'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path='/admin-login' element={<AdminLogin />}></Route>
             <Route path='/admin' element={<Admin><HomeAdmin/></Admin>}></Route>
             <Route path='/admin/customer' element={<Admin><AdminCustomer/></Admin>}></Route>
+            <Route path='/admin/customer/:id' element={<Admin><AdminCustomerEdit/></Admin>}></Route>
             <Route path='/admin/product' element={<Admin><AdminProduct/></Admin>}></Route>
             <Route path='/admin/product/:id' element={<Admin><AdminProductEdit/></Admin>}></Route>
             <Route path='/admin/shopping' element={<Admin><AdminShopping/></Admin>}></Route>

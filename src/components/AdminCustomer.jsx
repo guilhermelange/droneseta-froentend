@@ -18,6 +18,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import useSWR, { useSWRConfig } from 'swr'
 import { api } from '../common/service/api'
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 
 const itemsPerPage = 8;
@@ -25,13 +26,14 @@ const itemsPerPage = 8;
 function AdminCustomer() {
     const { mutate } = useSWRConfig()
     const [currentPage, setCurrentPage] = useState(0);
+    const navigate = useNavigate();
 
     const handlePageClick = (data) => {
         setCurrentPage(data.selected);
     };
 
     const handleEdit = (id) => {
-
+        navigate(`/admin/customer/${id}`);
     }
 
     const handleDelete = async (id) => {

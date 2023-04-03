@@ -66,14 +66,14 @@ const components = {
 
 export const theme = extendTheme({
   config,
-  colors,
+  // colors,
   shadows,
   fonts,
   components
 },
   withDefaultVariant({
     variant: 'filled',
-    components: ['Input', 'NumberInput', 'PinInput', 'TextArea', 'Select'],
+    components: ['Input', 'NumberInput', 'PinInput', 'Textarea', 'Select'],
   })
   )
 
