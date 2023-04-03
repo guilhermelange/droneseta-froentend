@@ -17,8 +17,9 @@ import ReactPaginate from 'react-paginate';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import useSWR, { useSWRConfig } from 'swr'
 import { api } from '../common/service/api'
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
 import { formatToBRL } from '../common/format'
+import { useNavigate } from 'react-router-dom';
 
 
 const itemsPerPage = 10;
@@ -27,18 +28,23 @@ function AdminProduct() {
     const { mutate } = useSWRConfig()
     const [currentPage, setCurrentPage] = useState(0);
     const [view, setView] = useState(0);
+    const navigate = useNavigate();
 
     const handlePageClick = (data) => {
         setCurrentPage(data.selected);
     };
 
     const handleEdit = (id) => {
-
+        navigate(`/admin/product/${id}`);
     }
 
     const handleDelete = async (id) => {
         await api.delete(`/product/${id}`);
         mutate("/product");
+    }
+
+    const handleNewProduct = async () => {
+        navigate('/admin/product/0');
     }
 
     const { data: products, error, isLoading } = useSWR("/product", api);
@@ -56,6 +62,16 @@ function AdminProduct() {
             <Heading as="h1" size="lg" m="6">
                 Administração de Produtos
             </Heading>
+            <Box w={'full'} textAlign={'start'} my={3}>
+                <IconButton
+                    size={'sm'}
+                    variant="outline"
+                    colorScheme="blackAlpha"
+                    aria-label="Add item"
+                    icon={<FaPlus />}
+                    onClick={handleNewProduct}
+                    />
+            </Box>
             <VStack spacing={8}>
                 <TableContainer w={'full'}>
                     <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
@@ -91,7 +107,9 @@ function AdminProduct() {
                                                 variant="outline"
                                                 colorScheme="gray"
                                                 aria-label="Edit item"
-                                                icon={<FaEdit />} />
+                                                icon={<FaEdit />}
+                                                onClick={() => { handleEdit(product.id) }}
+                                            />
                                             <IconButton
                                                 size={'sm'}
                                                 variant="outline"
@@ -99,7 +117,7 @@ function AdminProduct() {
                                                 aria-label="Remove item"
                                                 icon={<FaTrash />}
                                                 mr="0"
-                                                onClick={() => {handleDelete(product.id)}} />
+                                                onClick={() => { handleDelete(product.id) }} />
                                         </Stack>
                                     </Td>
                                 </Tr>

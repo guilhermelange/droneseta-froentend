@@ -24,27 +24,6 @@ import ReactPaginate from 'react-paginate';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { formatToBRL } from '../common/format';
 
-const payments = [
-  {
-    id: 1,
-    name: 'João Silva',
-    creditCard: '1234 5678 9012 3456',
-    amount: 49.99,
-  },
-  {
-    id: 2,
-    name: 'Maria Souza',
-    creditCard: '2345 6789 0123 4567',
-    amount: 89.99,
-  },
-  {
-    id: 3,
-    name: 'Carlos Pereira',
-    creditCard: '3456 7890 1234 5678',
-    amount: 29.99,
-  },
-];
-
 const itemsPerPage = 8;
 
 function App() {

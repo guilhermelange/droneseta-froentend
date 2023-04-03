@@ -19,6 +19,7 @@ import AdminProduct from './components/AdminProduct';
 import AdminTravel from './components/AdminTravel';
 import AdminShopping from './components/AdminShopping';
 import AdminProductSales from './components/AdminProductSales'
+import AdminProductEdit from './components/AdminProductEdit'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path='/admin' element={<Admin><HomeAdmin/></Admin>}></Route>
             <Route path='/admin/customer' element={<Admin><AdminCustomer/></Admin>}></Route>
             <Route path='/admin/product' element={<Admin><AdminProduct/></Admin>}></Route>
+            <Route path='/admin/product/:id' element={<Admin><AdminProductEdit/></Admin>}></Route>
             <Route path='/admin/shopping' element={<Admin><AdminShopping/></Admin>}></Route>
             <Route path='/admin/travel' element={<Admin><AdminTravel/></Admin>}></Route>
             <Route path='/admin/productsales' element={<Admin><AdminProductSales/></Admin>}></Route>

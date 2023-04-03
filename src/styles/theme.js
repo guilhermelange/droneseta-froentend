@@ -56,7 +56,11 @@ const components = {
     }
   },
   Textarea: {
-    variants: {}
+    variants: {
+      outline: variantFocus,
+      filled: variantFocus,
+      flushed: variantFocus
+    }
   }
 }
 
@@ -69,7 +73,7 @@ export const theme = extendTheme({
 },
   withDefaultVariant({
     variant: 'filled',
-    components: ['Input', 'NumberInput', 'PinInput'],
+    components: ['Input', 'NumberInput', 'PinInput', 'TextArea', 'Select'],
   })
   )
 

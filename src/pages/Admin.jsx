@@ -24,7 +24,6 @@ import {
   Image,
 } from '@chakra-ui/react';
 import {
-  FiHome,
   FiTrendingUp,
   FiMenu,
   FiChevronDown,
@@ -35,13 +34,7 @@ import {
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HomeAdmin from '../components/HomeAdmin'
-import AdminCustomer from '../components/AdminCustomer'
-import AdminProductSales from '../components/AdminProductSales'
-import AdminShopping from '../components/AdminShopping'
 import { headerBg } from '../styles/theme'
-import AdminTravel from '../components/AdminTravel';
-import AdminProduct from '../components/AdminProduct'
 
 interface LinkItemProps {
   name: string;
@@ -84,12 +77,6 @@ export default function Admin({children}) {
       </Drawer>
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-        {/* {menu === 0 && <HomeAdmin></HomeAdmin>}
-        {menu === 1 && <AdminCustomer></AdminCustomer>}
-        {menu === 2 && <AdminProduct></AdminProduct>}
-        {menu === 3 && <AdminShopping></AdminShopping>}
-        {menu === 4 && <AdminTravel></AdminTravel>}
-        {menu === 5 && <AdminProductSales></AdminProductSales>} */}
         {children}
       </Box>
     </Box>
@@ -116,7 +103,7 @@ const SidebarContent = ({ onClose, menu, setMenu, ...rest }: SidebarProps) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Flex justifyContent={'center'} alignItems={'center'} gap={3}>
-          <Image src='logo.svg' h={'35px'}></Image>
+          <Image src='/logo.svg' h={'35px'}></Image>
           <Text fontSize="2xl" fontWeight="bold">
             Droneseta
           </Text>
