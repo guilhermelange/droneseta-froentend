@@ -87,8 +87,6 @@ function ShoppingTable() {
 
 export default function Shopping() {
     return (
-        <Template>
-            <ShoppingTable></ShoppingTable>
-        </Template>
+        <ShoppingTable></ShoppingTable>
     );
 }

@@ -243,9 +243,7 @@ function Form3({ errors, register }: FormDTO) {
 
 export default function Signup() {
     return (
-        <Template>
-            <CustomerSignup></CustomerSignup>
-        </Template>
+        <CustomerSignup></CustomerSignup>
     )
 }
 

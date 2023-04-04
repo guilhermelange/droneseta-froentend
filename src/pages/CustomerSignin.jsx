@@ -14,15 +14,14 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Template from '../pages/Template'
 import { primary, primaryHex } from '../styles/theme';
 import { api } from '../common/service/api';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Signin() {
   return (
-    <Template>
-      <CustomerSignin></CustomerSignin>
-    </Template>
+    <CustomerSignin></CustomerSignin>
   )
 }
 
@@ -30,6 +29,7 @@ function CustomerSignin() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
   const toast = useToast()
+  const { login } = useContext(AuthContext);
 
   const handleClick = (data: any) => {
     api.post('/auth', {
@@ -38,11 +38,13 @@ function CustomerSignin() {
     })
       .then(e => {
         toast({
-            title: 'Login efetuado com sucesso!',
-            status: 'success',
-            duration: 2000,
-            isClosable: true,
+          title: 'Login efetuado com sucesso!',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
         })
+
+        login(e.data.customer);
         navigate('/')
       })
       .catch(e => {
@@ -54,7 +56,7 @@ function CustomerSignin() {
           isClosable: true,
         })
       });
-    
+
   }
 
   const handleSignup = (data: any) => {

@@ -161,8 +161,6 @@ function Product() {
 
 export default function ProductDetails() {
     return (
-        <Template>
-            <Product></Product>
-        </Template>
+        <Product></Product>
     )
 }

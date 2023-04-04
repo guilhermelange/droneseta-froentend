@@ -12,7 +12,7 @@ import Product from './pages/Product'
 import Cart from './pages/Cart'
 import Search from './pages/Search';
 import Shopping from './pages/Shopping';
-import {SessionProvider} from './context/SessionContext'
+import { SessionProvider } from './context/SessionContext'
 import HomeAdmin from './components/HomeAdmin';
 import AdminCustomer from './components/AdminCustomer';
 import AdminProduct from './components/AdminProduct';
@@ -21,34 +21,37 @@ import AdminShopping from './components/AdminShopping';
 import AdminProductSales from './components/AdminProductSales'
 import AdminProductEdit from './components/AdminProductEdit'
 import AdminCustomerEdit from './components/AdminCustomerEdit'
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
     <div className="App">
       <SessionProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/admin-login' element={<AdminLogin />}></Route>
-            <Route path='/admin' element={<Admin><HomeAdmin/></Admin>}></Route>
-            <Route path='/admin/customer' element={<Admin><AdminCustomer/></Admin>}></Route>
-            <Route path='/admin/customer/:id' element={<Admin><AdminCustomerEdit/></Admin>}></Route>
-            <Route path='/admin/product' element={<Admin><AdminProduct/></Admin>}></Route>
-            <Route path='/admin/product/:id' element={<Admin><AdminProductEdit/></Admin>}></Route>
-            <Route path='/admin/shopping' element={<Admin><AdminShopping/></Admin>}></Route>
-            <Route path='/admin/travel' element={<Admin><AdminTravel/></Admin>}></Route>
-            <Route path='/admin/productsales' element={<Admin><AdminProductSales/></Admin>}></Route>
-            <Route path='/signup' element={<CustomerSignup />}></Route>
-            <Route path='/signin' element={<CustomerSignin />}></Route>
-            <Route path='/' element={<Home />}></Route>
-            <Route path='/cart' element={<Cart />}></Route>
-            <Route path='/search' element={<Search />}></Route>
-            <Route path='/shopping' element={<Shopping />}></Route>
-            <Route path='/product/:id' element={<Product />}></Route>
-            <Route path='/template' element={<Template />}></Route>
-            <Route path='/toggle-theme' element={<ToggleTheme />}></Route>
-            <Route path='*' element={<NotFound />}></Route>
-          </Routes>
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/admin-login' element={<AdminLogin />}></Route>
+              <Route path='/admin' element={<Admin><HomeAdmin /></Admin>}></Route>
+              <Route path='/admin/customer' element={<Admin><AdminCustomer /></Admin>}></Route>
+              <Route path='/admin/customer/:id' element={<Admin><AdminCustomerEdit /></Admin>}></Route>
+              <Route path='/admin/product' element={<Admin><AdminProduct /></Admin>}></Route>
+              <Route path='/admin/product/:id' element={<Admin><AdminProductEdit /></Admin>}></Route>
+              <Route path='/admin/shopping' element={<Admin><AdminShopping /></Admin>}></Route>
+              <Route path='/admin/travel' element={<Admin><AdminTravel /></Admin>}></Route>
+              <Route path='/admin/productsales' element={<Admin><AdminProductSales /></Admin>}></Route>
+              <Route path='/signup' element={<Template><CustomerSignup /></Template>}></Route>
+              <Route path='/signin' element={<Template><CustomerSignin /></Template>}></Route>
+              <Route path='/' element={<Template><Home /></Template>}></Route>
+              <Route path='/cart' element={<Template><Cart /></Template>}></Route>
+              <Route path='/search' element={<Template><Search /></Template>}></Route>
+              <Route path='/shopping' element={<Template><Shopping /></Template>}></Route>
+              <Route path='/product/:id' element={<Template><Product /></Template>}></Route>
+              <Route path='/template' element={<Template />}></Route>
+              <Route path='/toggle-theme' element={<ToggleTheme />}></Route>
+              <Route path='*' element={<Template><NotFound /></Template>}></Route>
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
       </SessionProvider>
     </div>
   );

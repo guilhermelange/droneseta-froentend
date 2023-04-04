@@ -26,6 +26,7 @@ import { useEffect } from 'react';
 import { SessionContext } from "../context/SessionContext"
 import { useContext } from 'react';
 import { useRef } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 interface TemplateDTO {
     children: any
@@ -37,9 +38,10 @@ export default function Template({ children }: TemplateDTO) {
     const navigate = useNavigate();
     const query = useQuery();
 
-    const { searchState: [, setSearch], isAuthenticated } = useContext(SessionContext);
+    const { searchState: [, setSearch] } = useContext(SessionContext);
+    const { isAuthenticated, logout } = useContext(AuthContext)
     const searchRef = useRef("");
-    const logged = isAuthenticated();
+    const logged = isAuthenticated;
 
     useEffect(() => {
         const queryValue = query.get('q') || '';
@@ -62,6 +64,11 @@ export default function Template({ children }: TemplateDTO) {
     const handleSearch = async (data: any) => {
         await setSearch(searchRef.current.value);
         navigate(`/search?q=${searchRef.current.value}`)
+    }
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
     }
 
     return (
@@ -136,7 +143,7 @@ export default function Template({ children }: TemplateDTO) {
                         <MenuList bg={headerBg}
                             borderColor={'gray.200'}>
                             <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={() => { navigate('/shopping') }}>Compras</MenuItem>
-                            <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={() => { navigate('/') }}>Sair</MenuItem>
+                            <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={handleLogout}>Sair</MenuItem>
                         </MenuList>
                     </Menu>}
                 </Stack>

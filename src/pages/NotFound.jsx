@@ -3,7 +3,7 @@ import { primary } from "../styles/theme";
 
 export default function NotFound() {
     return (
-        <Flex alignItems={'center'} justifyContent={'center'} h={'100vh'}>
+        <Flex alignItems={'center'} justifyContent={'center'} py={28}>
             <Box p={6} textAlign={'center'} background={'whiteAlpha.50'}>
                 <VStack spacing={6}>
                     <Heading>Não localizado<Text display={'inline'} color={primary}>!</Text> </Heading>
