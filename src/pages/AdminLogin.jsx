@@ -11,18 +11,39 @@ import {
   useColorModeValue,
   Image,
   FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { primary } from '../styles/theme';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export default function AdminLogin() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
+  const toast = useToast();
+  const { loginAdmin } = useContext(AuthContext);
 
   const handleClick = (data: any) => {
-    navigate('/admin')
+    if (data.cpf.replace(/\D/g, "") === '12345678910' && data.password === 'admin') {
+      loginAdmin();
+      toast({
+        title: 'Login efetuado.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+      navigate('/admin')
+    } else {
+      toast({
+        title: 'Dados inválidos!',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
   }
 
   return (

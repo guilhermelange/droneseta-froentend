@@ -35,6 +35,8 @@ import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { headerBg } from '../styles/theme'
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 interface LinkItemProps {
   name: string;
@@ -156,7 +158,12 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const navigate = useNavigate();
+  const { logoutAdmin } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logoutAdmin();
+  }
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -209,7 +216,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               borderColor={useColorModeValue('gray.200', 'gray.700')}
               >
               {/* <MenuDivider /> */}
-              <MenuItem bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={() => {navigate('../admin-login')}}>Sair</MenuItem>
+              <MenuItem bg={useColorModeValue(headerBg, headerBg)} _hover={{bg: 'whiteAlpha.200',}} onClick={handleLogout}>Sair</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

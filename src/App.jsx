@@ -22,6 +22,8 @@ import AdminProductSales from './components/AdminProductSales'
 import AdminProductEdit from './components/AdminProductEdit'
 import AdminCustomerEdit from './components/AdminCustomerEdit'
 import { AuthProvider } from './context/AuthContext';
+import AdminPrivateRoute from './components/AdminPrivateRoute'
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -31,20 +33,20 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path='/admin-login' element={<AdminLogin />}></Route>
-              <Route path='/admin' element={<Admin><HomeAdmin /></Admin>}></Route>
-              <Route path='/admin/customer' element={<Admin><AdminCustomer /></Admin>}></Route>
-              <Route path='/admin/customer/:id' element={<Admin><AdminCustomerEdit /></Admin>}></Route>
-              <Route path='/admin/product' element={<Admin><AdminProduct /></Admin>}></Route>
-              <Route path='/admin/product/:id' element={<Admin><AdminProductEdit /></Admin>}></Route>
-              <Route path='/admin/shopping' element={<Admin><AdminShopping /></Admin>}></Route>
-              <Route path='/admin/travel' element={<Admin><AdminTravel /></Admin>}></Route>
-              <Route path='/admin/productsales' element={<Admin><AdminProductSales /></Admin>}></Route>
+              <Route path='/admin' element={<AdminPrivateRoute><Admin><HomeAdmin /></Admin></AdminPrivateRoute>}></Route>
+              <Route path='/admin/customer' element={<AdminPrivateRoute><Admin><AdminCustomer /></Admin></AdminPrivateRoute>}></Route>
+              <Route path='/admin/customer/:id' element={<AdminPrivateRoute><Admin><AdminCustomerEdit /></Admin></AdminPrivateRoute>}></Route>
+              <Route path='/admin/product' element={<AdminPrivateRoute><Admin><AdminProduct /></Admin></AdminPrivateRoute>}></Route>
+              <Route path='/admin/product/:id' element={<AdminPrivateRoute><Admin><AdminProductEdit /></Admin></AdminPrivateRoute>}></Route>
+              <Route path='/admin/shopping' element={<AdminPrivateRoute><Admin><AdminShopping /></Admin></AdminPrivateRoute>}></Route>
+              <Route path='/admin/travel' element={<AdminPrivateRoute><Admin><AdminTravel /></Admin></AdminPrivateRoute>}></Route>
+              <Route path='/admin/productsales' element={<AdminPrivateRoute><Admin><AdminProductSales /></Admin></AdminPrivateRoute>}></Route>
               <Route path='/signup' element={<Template><CustomerSignup /></Template>}></Route>
               <Route path='/signin' element={<Template><CustomerSignin /></Template>}></Route>
               <Route path='/' element={<Template><Home /></Template>}></Route>
               <Route path='/cart' element={<Template><Cart /></Template>}></Route>
               <Route path='/search' element={<Template><Search /></Template>}></Route>
-              <Route path='/shopping' element={<Template><Shopping /></Template>}></Route>
+              <Route path='/shopping' element={<PrivateRoute><Template><Shopping /></Template></PrivateRoute>}></Route>
               <Route path='/product/:id' element={<Template><Product /></Template>}></Route>
               <Route path='/template' element={<Template />}></Route>
               <Route path='/toggle-theme' element={<ToggleTheme />}></Route>
