@@ -17,7 +17,7 @@ import { MdLocalShipping } from 'react-icons/md';
 import Template from './Template'
 import { primary, primaryHex } from '../styles/theme';
 import useSWR from 'swr'
-import { api } from '../common/service/api'
+import { api, resources } from '../common/service/api'
 import { useNavigate, useParams } from 'react-router-dom';
 import { formatToBRL } from '../common/format';
 import { useContext } from 'react';
@@ -68,7 +68,7 @@ function Product() {
                     <Image
                         rounded={'md'}
                         alt={product.name}
-                        src={'/static/' + product.img}
+                        src={resources + product.img}
                         fit={'cover'}
                         align={'center'}
                         w={'100%'}

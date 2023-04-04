@@ -56,7 +56,7 @@ function Cart() {
                   // _first={{ borderTopRadius: 'lg' }}
                   // _last={{ borderBottomRadius: 'lg' }}
                   >
-                  <Image src={'/static/' + item.image} alt={item.name} w="75px" h="75px" mr="4" />
+                  <Image src={resources + item.image} alt={item.name} w="75px" h="75px" mr="4" />
                   <Box flex="1">
                     <Text fontWeight="semibold" fontSize="sm">
                       {item.name}
