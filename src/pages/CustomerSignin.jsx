@@ -10,11 +10,13 @@ import {
   Text,
   Image,
   FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Template from '../pages/Template'
 import { primary, primaryHex } from '../styles/theme';
+import { api } from '../common/service/api';
 
 export default function Signin() {
   return (
@@ -27,9 +29,32 @@ export default function Signin() {
 function CustomerSignin() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
+  const toast = useToast()
 
   const handleClick = (data: any) => {
-    navigate('/')
+    api.post('/auth', {
+      cpf: data.cpf.replace(/\D/g, ""),
+      password: data.password
+    })
+      .then(e => {
+        toast({
+            title: 'Login efetuado com sucesso!',
+            status: 'success',
+            duration: 2000,
+            isClosable: true,
+        })
+        navigate('/')
+      })
+      .catch(e => {
+        toast({
+          title: 'Algo deu errado!',
+          status: 'error',
+          duration: 2000,
+          description: e.response?.data?.message || 'Erro interno',
+          isClosable: true,
+        })
+      });
+    
   }
 
   const handleSignup = (data: any) => {

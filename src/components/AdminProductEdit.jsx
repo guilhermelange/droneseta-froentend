@@ -89,7 +89,6 @@ function AdminProduct() {
                 handleReturn();
             })
             .catch(e => {
-                console.log()
                 toast({
                     title: 'Algo deu errado! ',
                     description: e.response.data.message,

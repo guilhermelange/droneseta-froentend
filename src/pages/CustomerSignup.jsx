@@ -10,10 +10,8 @@ import {
     FormLabel,
     Input,
     FormErrorMessage,
-    useColorModeValue,
     Stack,
     Text,
-    Center,
     Image,
     Link,
 } from '@chakra-ui/react';
@@ -23,6 +21,7 @@ import { useForm } from 'react-hook-form';
 import { primary, primaryHex } from '../styles/theme';
 import { useNavigate } from 'react-router-dom';
 import Template from './Template'
+import { api } from '../common/service/api';
 
 
 interface FormDTO {
@@ -39,6 +38,20 @@ function Form1({ errors, register }: FormDTO) {
                 Crie sua conta<Text display={'inline'} color={primaryHex}>!</Text>
             </Text>
             <Stack spacing={4}>
+                <FormControl isInvalid={!!errors.name}>
+                    <FormLabel htmlFor='name'>Nome</FormLabel>
+                    <Input
+                        type={'text'}
+                        id='name'
+                        placeholder='Informe seu nome'
+                        {...register('name', {
+                            required: 'Obrigatório informar seu nome'
+                        })}
+                    />
+                    <FormErrorMessage>
+                        {errors.name && String(errors.name.message)}
+                    </FormErrorMessage>
+                </FormControl>
                 <FormControl isInvalid={!!errors.cpf}>
                     <FormLabel htmlFor='cpf'>CPF</FormLabel>
                     <Input
@@ -93,7 +106,7 @@ function Form1({ errors, register }: FormDTO) {
 function Form2({ errors, register }: FormDTO) {
     return (
         <>
-            <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
+            <Heading fontSize={'2xl'} w="100%" textAlign={'center'} fontWeight="black" mb="2%">
                 Endereço Pessoal
             </Heading>
             <Stack spacing={4}>
@@ -163,7 +176,7 @@ function Form3({ errors, register }: FormDTO) {
 
     return (
         <>
-            <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
+            <Heading w="100%" textAlign={'center'} fontWeight="black" fontSize={'2xl'} mb="2%">
                 Endereço de Entrega
             </Heading>
             <Stack spacing={4}>
@@ -248,6 +261,46 @@ function CustomerSignup() {
         navigate('/signin')
     }
 
+    const handleClickNewCustomer = (data) => {
+        api.post("/customer", {
+            name: data.name,
+            password: data.password,
+            cpf: data.cpf.replace(/\D/g, ""),
+            creditCard: data.creditCard,
+            address: {
+                city: data.city,
+                number: data.number,
+                publicPlace: data.public_place,
+                state: data.state
+            },
+            deliveryAddress: {
+                city: data.city2,
+                number: data.number2,
+                publicPlace: data.public_place2,
+                state: data.state2
+            }
+        }).then(e => {
+            toast({
+                title: 'Conta Criada.',
+                description: "Login disponível.",
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            });
+            navigate('../signin')
+        })
+        .catch(e => {
+            toast({
+                title: 'Algo deu errado!',
+                status: 'error',
+                duration: 2000,
+                description: e.response?.data?.message || 'Erro interno',
+                isClosable: true,
+              })
+        })
+        
+    }
+
     return (
         <>
             <Flex
@@ -266,7 +319,8 @@ function CustomerSignup() {
                         </Flex>
                     </Stack>
                     <Box
-                        rounded="lg"
+                        rounded={'lg'}
+                        boxShadow={'lg'}
                         maxWidth={500}
                         minW={450}
                         p={6}
@@ -301,7 +355,8 @@ function CustomerSignup() {
                                         w="7rem"
                                         isDisabled={step === 3}
                                         onClick={
-                                            handleSubmit(() => {
+                                            handleSubmit((data) => {
+                                                console.log(data)
                                                 setStep(step + 1);
                                                 if (step === 3) {
                                                     setProgress(100);
@@ -320,16 +375,7 @@ function CustomerSignup() {
                                         colorScheme={primary}
                                         color={'white'}
                                         isLoading={isSubmitting}
-                                        onClick={() => {
-                                            toast({
-                                                title: 'Conta Criada.',
-                                                description: "Login disponível.",
-                                                status: 'success',
-                                                duration: 3000,
-                                                isClosable: true,
-                                            });
-                                            navigate('../signin')
-                                        }}>
+                                        onClick={handleSubmit(handleClickNewCustomer)}>
                                         Concluir
                                     </Button>
                                 ) : null}
