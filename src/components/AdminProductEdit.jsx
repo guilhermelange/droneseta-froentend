@@ -19,9 +19,10 @@ import { api, resources } from '../common/service/api'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { primary } from '../styles/theme';
-
+import { v4 as uuidv4 } from 'uuid';
 
 function AdminProduct() {
+    const [selectedFile, setSelectedFile] = useState(null);
     const toast = useToast()
     let { id: idPath } = useParams();
     const [product, setProduct] = useState({
@@ -45,6 +46,11 @@ function AdminProduct() {
         }
     }, [])
 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+    };
+
     const handleUpdate = async () => {
         api.put(`/product/${idPath}`, product)
             .then(e => {
@@ -54,6 +60,8 @@ function AdminProduct() {
                     duration: 2000,
                     isClosable: true,
                 })
+
+                updateFile(product.id);
                 handleReturn();
             })
             .catch(e => {
@@ -61,23 +69,23 @@ function AdminProduct() {
                     title: 'Algo deu errado!',
                     status: 'error',
                     duration: 2000,
-                    description: e.response?.data?.message || 'Erro interno' ,
+                    description: e.response?.data?.message || 'Erro interno',
                     isClosable: true,
                 })
             });
     }
 
-    const handleCreate = async () => {       
-        api.post('/product', product)
+    const handleCreate = async () => {
+        api.post('/product', { ...product, img: `${uuidv4()}.png` })
             .then(e => {
-                const newProduct = e.data;             
                 toast({
                     title: 'Produto inserido com sucesso!',
                     status: 'success',
                     duration: 2000,
                     isClosable: true,
                 })
-
+                
+                updateFile(e.data?.id);
                 handleReturn();
             })
             .catch(e => {
@@ -94,6 +102,19 @@ function AdminProduct() {
 
     const handleReturn = () => {
         navigate('/admin/product')
+    }
+
+    const updateFile = (productId) => {
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            api.post(`/product/image/${productId}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        }
     }
 
     return (
@@ -148,7 +169,7 @@ function AdminProduct() {
                     </FormControl>
                     <FormControl mb={4}>
                         <FormLabel htmlFor="img">Imagem</FormLabel>
-                        <Input p={1} type='file' id="img" name="img" placeholder="Imagem"/>
+                        <Input p={1} type='file' id="img" name="img" placeholder="Imagem" onChange={handleFileChange} />
                     </FormControl>
                     <FormControl mb={4}>
                         <Stack direction={'row'}>
