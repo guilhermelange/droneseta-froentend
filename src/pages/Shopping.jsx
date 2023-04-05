@@ -16,6 +16,8 @@ import Template from './Template'
 import useSWR from 'swr'
 import { api } from '../common/service/api'
 import { formatToBRL } from '../common/format';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 const orders = [
     {
@@ -42,8 +44,10 @@ const orders = [
 ];
 
 function ShoppingTable() {
+    const { user } = useContext(AuthContext);
+    
     const { data: orders, error, isLoading } = useSWR("/order/customer", () =>
-        api.get("/order/customer/1517").then(response => response.data)
+        api.get(`/order/customer/${user.id}`).then(response => response.data)
     );
 
     if (error) return <div></div>

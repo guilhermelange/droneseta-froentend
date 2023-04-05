@@ -49,7 +49,7 @@ function App() {
               <Route path='/search' element={<Template><Search /></Template>}></Route>
               <Route path='/shopping' element={<PrivateRoute><Template><Shopping /></Template></PrivateRoute>}></Route>
               <Route path='/product/:id' element={<Template><Product /></Template>}></Route>
-              <Route path='/customer' element={<Template><Customer/></Template>}></Route>
+              <Route path='/customer' element={<PrivateRoute><Template><Customer/></Template></PrivateRoute>}></Route>
               <Route path='/template' element={<Template />}></Route>
               <Route path='/toggle-theme' element={<ToggleTheme />}></Route>
               <Route path='*' element={<Template><NotFound /></Template>}></Route>
