@@ -24,6 +24,7 @@ import AdminCustomerEdit from './components/AdminCustomerEdit'
 import { AuthProvider } from './context/AuthContext';
 import AdminPrivateRoute from './components/AdminPrivateRoute'
 import PrivateRoute from './components/PrivateRoute';
+import Customer from './pages/Customer'
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
               <Route path='/search' element={<Template><Search /></Template>}></Route>
               <Route path='/shopping' element={<PrivateRoute><Template><Shopping /></Template></PrivateRoute>}></Route>
               <Route path='/product/:id' element={<Template><Product /></Template>}></Route>
+              <Route path='/customer' element={<Template><Customer/></Template>}></Route>
               <Route path='/template' element={<Template />}></Route>
               <Route path='/toggle-theme' element={<ToggleTheme />}></Route>
               <Route path='*' element={<Template><NotFound /></Template>}></Route>

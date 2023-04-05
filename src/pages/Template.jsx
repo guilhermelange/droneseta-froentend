@@ -39,7 +39,7 @@ export default function Template({ children }: TemplateDTO) {
     const query = useQuery();
 
     const { searchState: [, setSearch] } = useContext(SessionContext);
-    const { isAuthenticated, logout } = useContext(AuthContext)
+    const { isAuthenticated, logout, user } = useContext(AuthContext)
     const searchRef = useRef("");
     const logged = isAuthenticated;
 
@@ -142,6 +142,7 @@ export default function Template({ children }: TemplateDTO) {
                         </MenuButton>
                         <MenuList bg={headerBg}
                             borderColor={'gray.200'}>
+                            <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={() => { navigate('/customer') }}>Meu perfil</MenuItem>
                             <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={() => { navigate('/shopping') }}>Compras</MenuItem>
                             <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={handleLogout}>Sair</MenuItem>
                         </MenuList>
