@@ -38,10 +38,12 @@ export default function Template({ children }: TemplateDTO) {
     const navigate = useNavigate();
     const query = useQuery();
 
-    const { searchState: [, setSearch] } = useContext(SessionContext);
-    const { isAuthenticated, logout, user } = useContext(AuthContext)
+    const { searchState: [, setSearch], cartState: [cart] } = useContext(SessionContext);
+    const { isAuthenticated, logout } = useContext(AuthContext)
     const searchRef = useRef("");
     const logged = isAuthenticated;
+
+    console.log(cart);
 
     useEffect(() => {
         const queryValue = query.get('q') || '';
@@ -115,8 +117,15 @@ export default function Template({ children }: TemplateDTO) {
                     spacing={{ base: '2', md: '4', xl: '8' }}
                     alignItems={'center'}
                     justifyContent={'center'}>
-                    <Box cursor={'pointer'} onClick={handleClickCart} >
+                    <Box cursor={'pointer'} onClick={handleClickCart} display={'flex'} justifyContent={'center'} alignItems={'center'}>
                         <FiShoppingCart color='white' />
+                        {cart && <Text mt={'-15px'}
+                            color={'white'}
+                            h={'full'}
+                            fontSize={'11px'}
+                            bg={'purple.500'}
+                            borderRadius={'20px'}
+                            px={'5px'}>{cart.length}</Text>}
                     </Box>
 
                     {!logged && <Button
@@ -133,7 +142,7 @@ export default function Template({ children }: TemplateDTO) {
                         onClick={handleClickLogin}>
                         Login
                     </Button>}
-                    
+
                     {logged && <Menu>
                         <MenuButton py={2}
                             transition="all 0.3s"
