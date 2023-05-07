@@ -15,7 +15,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { primary, primaryHex } from '../styles/theme';
-import { api } from '../common/service/api';
+import setTokenApi, { api } from '../common/service/api';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
@@ -44,7 +44,8 @@ function CustomerSignin() {
           isClosable: true,
         })
 
-        login(e.data.customer);
+        setTokenApi(e.data.token);
+        login(e.data.customer);        
         navigate('/')
       })
       .catch(e => {

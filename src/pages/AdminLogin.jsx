@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { primary } from '../styles/theme';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import setTokenApi, { api } from '../common/service/api';
 
 export default function AdminLogin() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
@@ -27,23 +28,29 @@ export default function AdminLogin() {
   const { loginAdmin } = useContext(AuthContext);
 
   const handleClick = (data: any) => {
-    if (data.cpf.replace(/\D/g, "") === '12345678910' && data.password === 'admin') {
-      loginAdmin();
-      toast({
-        title: 'Login efetuado.',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      });
-      navigate('/admin')
-    } else {
-      toast({
-        title: 'Dados inválidos!',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
+    api.post('/auth/admin', {
+      cpf: data.cpf.replace(/\D/g, ""),
+      password: data.password
+    })
+      .then(e => {
+        setTokenApi(e.data.token);
+        loginAdmin();
+        toast({
+          title: 'Login efetuado.',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+        navigate('/admin')
       })
-    }
+      .catch(e => {
+        toast({
+          title: 'Dados inválidos!',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
+      });
   }
 
   return (
