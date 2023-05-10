@@ -1,4 +1,6 @@
 import React from 'react';
+import useSWR, { useSWRConfig } from 'swr'
+import { api, resources } from '../common/service/api'
 import {
   Box,
   Heading,
@@ -13,31 +15,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-const products = [
-  {
-    id: 1,
-    name: 'Produto 1',
-    imageUrl: 'https://via.placeholder.com/150',
-    price: 49.99,
-    quantitySold: 100,
-  },
-  {
-    id: 2,
-    name: 'Produto 2',
-    imageUrl: 'https://via.placeholder.com/150',
-    price: 89.99,
-    quantitySold: 150,
-  },
-  {
-    id: 3,
-    name: 'Produto 3',
-    imageUrl: 'https://via.placeholder.com/150',
-    price: 29.99,
-    quantitySold: 200,
-  },
-];
-
-function ProductTable() {
+function ProductTable({products}) {
   return (
     <TableContainer w={'full'}>
       <Table variant="striped" size={'sm'} colorScheme={'blackAlpha'}>
@@ -54,10 +32,10 @@ function ProductTable() {
             <Tr key={product.id}>
               <Td>{product.name}</Td>
               <Td>
-                <Image boxSize="100px" src={product.imageUrl} alt={product.name} />
+                <Image boxSize="100px" src={resources + product.img} alt={product.name} />
               </Td>
-              <Td>{product.quantitySold}</Td>
-              <Td>R$ {(product.price * product.quantitySold).toFixed(2)}</Td>
+              <Td>{product.stock}</Td>
+              <Td>R$ {(product.price).toFixed(2)}</Td>
             </Tr>
           ))}
         </Tbody>
@@ -67,13 +45,18 @@ function ProductTable() {
 }
 
 function App() {
+  const { data: prod, error, isLoading } = useSWR("/order-item/3", api);
+  
+  if (error) return <div></div>
+  if (isLoading) return <div></div>
+
   return (
     <Box textAlign="center" fontSize="xl">
       <Heading as="h1" size="lg" m="6">
         Produtos Mais Vendidos
       </Heading>
       <VStack spacing={8}>
-        <ProductTable />
+        <ProductTable products = {prod.data} />
       </VStack>
     </Box>
   );

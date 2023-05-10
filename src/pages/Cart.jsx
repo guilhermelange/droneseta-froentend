@@ -1,21 +1,57 @@
-import { Box, Button, Container, Divider, Flex, HStack, IconButton, Image, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Button, Container, Divider, Flex, HStack, IconButton, Image, Stack, Text, useBreakpointValue, useToast } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 import { IoMdAdd, IoMdRemove } from "react-icons/io"
 import { useNavigate } from "react-router-dom";
 import { primary } from "../styles/theme";
-import Template from './Template'
 import { formatToBRL } from "../common/format";
-import { useContext } from "react";
+import { useContext } from 'react';
 import { SessionContext } from "../context/SessionContext";
-import { resources } from "../common/service/api"
+import { api, resources } from "../common/service/api"
+import { AuthContext } from "../context/AuthContext";
 
 function Cart() {
+  const toast = useToast();
   const isSmallerThanSm = useBreakpointValue({ base: true, sm: false });
   const navigate = useNavigate();
   const { cartState: [cartItems, setCartItems] } = useContext(SessionContext);
+  const { user } = useContext(AuthContext);
+  const userId = user.id;
 
   const handlePayment = (data: any) => {
-    navigate('/shopping')
+    let products = [];
+    
+    cartItems.forEach((product) => {
+      products.push({
+        "quantity": product.quantity,
+        "product_id": product.id,
+        "price": product.price
+      });
+    });
+
+    api.post("/order", {
+      "customer_id": userId,
+      "price": cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
+      "items": products
+    }).then(e => {
+        toast({
+            title: 'Compra realizada!',
+            description: "Compra Realizada.",
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+        });
+        setCartItems([]);
+        navigate('/shopping')
+    })
+    .catch(e => {
+        toast({
+            title: 'Algo deu errado!',
+            status: 'error',
+            duration: 2000,
+            description: e.response?.data?.message || 'Erro interno',
+            isClosable: true,
+          })
+    })
   }
 
   const handleRemove = (id) => {
