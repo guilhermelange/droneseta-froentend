@@ -19,30 +19,6 @@ import { formatToBRL } from '../common/format';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-const orders = [
-    {
-        id: 1,
-        status: 'Entregue',
-        value: 123.45,
-        items: ['Item 1', 'Item 2'],
-        deliveryTime: '3 dias',
-    },
-    {
-        id: 2,
-        status: 'Em trânsito',
-        value: 67.89,
-        items: ['Item 3', 'Item 4'],
-        deliveryTime: '5 dias',
-    },
-    {
-        id: 3,
-        status: 'Aguardando pagamento',
-        value: 98.76,
-        items: ['Item 5', 'Item 6'],
-        deliveryTime: '7 dias',
-    },
-];
-
 function ShoppingTable() {
     const { user } = useContext(AuthContext);
     
@@ -75,8 +51,8 @@ function ShoppingTable() {
                                     <Tr key={order.id}>
                                         <Td>{order.status}</Td>
                                         <Td>{formatToBRL(order.price)}</Td>
-                                        <Td>{(order?.items ? order.items : []).join(', ')}</Td>
-                                        <Td>{order.deliveryTime}</Td>
+                                        <Td>{order.items.map((item) => {return item.product.name}).join(', ')}</Td>
+                                        <Td>{order.delivery ? new Date(order.delivery).toLocaleString() : ''}</Td>
                                     </Tr>
                                 ))}
                             </Tbody>

@@ -48,6 +48,7 @@ function AdminTravel() {
                                 <Th>Id</Th>
                                 <Th>Quantidade</Th>
                                 <Th>Status</Th>
+                                <Th>Data/Hora de Saída</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
@@ -56,6 +57,7 @@ function AdminTravel() {
                                     <Td>{customer.id}</Td>
                                     <Td>{customer.quantity}</Td>
                                     <Td>{customer.status}</Td>
+                                    <Td>{new Date(customer.dateTime).toLocaleString()}</Td>
                                 </Tr>
                             ))}
                         </Tbody>
