@@ -52,7 +52,7 @@ function ShoppingTable() {
                                         <Td>{order.status}</Td>
                                         <Td>{formatToBRL(order.price)}</Td>
                                         <Td>{order.items.map((item) => {return item.product.name}).join(', ')}</Td>
-                                        <Td>{order.delivery ? new Date(order.delivery).toLocaleString() : ''}</Td>
+                                        <Td>{order.arrival ? new Date(order.arrival).toLocaleString() : ''}</Td>
                                     </Tr>
                                 ))}
                             </Tbody>

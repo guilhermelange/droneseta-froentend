@@ -45,7 +45,7 @@ function CustomerSignin() {
         })
 
         setTokenApi(e.data.token);
-        login(e.data.customer);        
+        login(e.data.customer);
         navigate('/')
       })
       .catch(e => {
