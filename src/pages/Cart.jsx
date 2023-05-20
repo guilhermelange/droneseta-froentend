@@ -19,7 +19,7 @@ function Cart() {
 
   const handlePayment = (data: any) => {
     let products = [];
-    
+
     cartItems.forEach((product) => {
       products.push({
         "quantity": product.quantity,
@@ -44,13 +44,29 @@ function Cart() {
         navigate('/shopping')
     })
     .catch(e => {
-        toast({
+        console.log(e)
+
+        if (e.response?.data?.status === 400) {
+          toast({
+            title: 'Necessário efetuar login!',
+            status: 'warning',
+            duration: 2000,
+            description: 'Você será redirecionado para o Login!',
+            isClosable: true,
+          })
+          setTimeout(() => {
+            navigate('/signin')
+          }, 2000)
+        } else {
+          toast({
             title: 'Algo deu errado!',
             status: 'error',
             duration: 2000,
             description: e.response?.data?.message || 'Erro interno',
             isClosable: true,
           })
+        }
+        
     })
   }
 
@@ -92,7 +108,7 @@ function Cart() {
               // _first={{ borderTopRadius: 'lg' }}
               // _last={{ borderBottomRadius: 'lg' }}
               >
-                <Image src={resources + item.image} alt={item.name} w="75px" h="75px" mr="4" />
+                <Image display={{base: 'none', md: 'inline-block'}} src={resources + item.image} alt={item.name} w="75px" h="75px" mr="4" />
                 <Box flex="1">
                   <Text fontWeight="semibold" fontSize="sm">
                     {item.name}
@@ -109,7 +125,7 @@ function Cart() {
                         colorScheme="gray"
                         aria-label="Diminuir item"
                         icon={<IoMdRemove />}
-                        ml="2"
+                        // ml="2"
                         onClick={() => { handleMinusItem(item.id) }}
                       />
                       <Text display={'inline'}>{item.quantity}</Text>
@@ -118,7 +134,7 @@ function Cart() {
                         colorScheme="gray"
                         aria-label="Adicionar item"
                         icon={<IoMdAdd />}
-                        ml="2"
+                        // ml="2"
                         onClick={() => { handlePlusItem(item.id) }}
                       />
                     </HStack>

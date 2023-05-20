@@ -20,7 +20,6 @@ import { useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { primary, primaryHex } from '../styles/theme';
 import { useNavigate } from 'react-router-dom';
-import Template from './Template'
 import { api } from '../common/service/api';
 
 

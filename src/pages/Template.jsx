@@ -127,35 +127,21 @@ export default function Template({ children }: TemplateDTO) {
                             borderRadius={'20px'}
                             px={'5px'}>{cart.length}</Text>}
                     </Box>
-
-                    {!logged && <Button
-                        as={'a'}
-                        fontSize={'sm'}
-                        fontWeight={400}
-                        variant={'link'}
-                        href={'#'}
-                        color={linkColor}
-                        _hover={{
-                            textDecoration: 'none',
-                            color: linkHoverColor,
-                        }}
-                        onClick={handleClickLogin}>
-                        Login
-                    </Button>}
-
-                    {logged && <Menu>
+                    <Menu>
                         <MenuButton py={2}
                             transition="all 0.3s"
-                            _focus={{ boxShadow: 'none' }}>
-                            <Avatar size={'sm'} />
+                            _focus={{ boxShadow: 'none' }}
+                            onClick={logged ? null : handleClickLogin}>
+                            <Avatar size={'sm'}/>
                         </MenuButton>
-                        <MenuList bg={headerBg}
+                        {logged && <MenuList bg={headerBg}
                             borderColor={'gray.200'}>
                             <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={() => { navigate('/customer') }}>Meu perfil</MenuItem>
                             <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={() => { navigate('/shopping') }}>Compras</MenuItem>
                             <MenuItem color={'white'} bg={headerBg} _hover={{ bg: 'whiteAlpha.200', }} onClick={handleLogout}>Sair</MenuItem>
-                        </MenuList>
-                    </Menu>}
+                        </MenuList>}
+
+                    </Menu>
                 </Stack>
             </Flex>
             <Box minH={'calc(100vh - 124px)'} >

@@ -70,12 +70,14 @@ function CustomerSignin() {
       justify={'center'}>
       <Stack spacing={8} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Flex justifyContent={'center'} alignItems={'center'} gap={2}>
-            <Image src='logo.svg' h={'2em'}></Image>
-            <Text fontSize="xl" fontWeight="bold">
-              Droneseta
-            </Text>
-            <Text fontSize={'lg'} color={'gray.600'} textAlign={'center'}>
+          <Flex justifyContent={'center'} flexDirection={{ base: 'column', md: 'row' }} alignItems={'center'} gap={2}>
+            <Flex gap={2}>
+              <Image src='logo.svg' h={'2em'}></Image>
+              <Text fontSize="xl" fontWeight="bold">
+                Droneseta
+              </Text>
+            </Flex>
+            <Text fontSize={{ base: 'sm', md: 'lg' }} color={'gray.600'} textAlign={'center'}>
               Aproveite as melhores ofertas<Link color={primary}>!</Link> ✌️
             </Text>
           </Flex>
@@ -137,6 +139,6 @@ function CustomerSignin() {
           </Stack>
         </Box>
       </Stack>
-    </Flex>
+    </Flex >
   );
 }
