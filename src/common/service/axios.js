@@ -5,8 +5,11 @@ const cookies = new Cookies();
 export function getAPIClient(ctx?: any) {
   const token = cookies.get('token')
 
+  console.log('API_URL')
+  console.log(process.env.REACT_APP_API_URL)
+
   const api = axios.create({
-    baseURL: process.env.PUBLIC_API_URL || 'http://127.0.0.1:8080'
+    baseURL: process.env.REACT_APP_API_URL || 'http://127.0.0.1:8080'
   })
 
   api.interceptors.request.use(config => {
